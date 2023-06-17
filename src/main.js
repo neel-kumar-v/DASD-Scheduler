@@ -1,19 +1,10 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const loginForm = document.getElementById("login-form");
+const studentCounselor = document.getElementById("student-counselor");
+const submitButton = document.getElementById("submit-button");
 
-document.querySelector('#app').innerHTML = `
-  <div>
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  loginForm.classList.add("exit");
+  studentCounselor.classList.add("enter");
+});
 
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
-
-setupCounter(document.querySelector('#counter'))
