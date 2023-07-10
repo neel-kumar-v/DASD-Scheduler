@@ -13,5 +13,9 @@
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "firebase": "^10.0.0",
+    "flowbite": "^1.7.0"
   }
 }

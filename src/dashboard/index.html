@@ -3,9 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Scheduler - Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <h1 class="text-3xl font-bold">dashboard</h1>
+    <navbar-component></navbar-component>
+
+    <div class="grid grid-cols-12 w-screen">
+      <div class="flex justify-around rounded-md text-center col-span-12 p-10">
+        <p class="text-5xl font-bold">Good Morning!</p>
+      </div>
+
+      <div class="col-start-2 col-end-8 text-center grid gap-y-5 text-white py-10 rounded-lg bg-gradient-to-t from-purple-700 to-purple-500">
+        <p class="text-4xl font-bold ">Traffic</p>
+        <div class="flex flex-row justify-around">
+          <p class="text-3xl italic">Today</p>
+          <p class="text-3xl italic">This Month</p>
+          <p class="text-3xl italic">This Year</p>
+        </div>
+      </div>
+      
+    </div>
+
+    <script type="module" src="../components.js"></script>
+    <script type="module" src="../main.js"></script>
   </body>
 </html>
