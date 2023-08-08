@@ -1,3 +1,5 @@
+import { validateUser } from "./firebase.js";
+
 const passwordInput = document.querySelector(".pass-field input");
 const requirementList = document.querySelectorAll(".requirement-list li");
 const submitButton = document.getElementById("submit-button");
@@ -68,8 +70,13 @@ submitButton.addEventListener("click", (e) => {
 
   const emailValid = !emailField.classList.contains("invalid")
   const passValid = !passField.classList.contains("invalid")
-  if (emailValid && passValid) {
-    loginForm.classList.add("exit");
-    studentCounselor.classList.add("enter");
+  if (!emailValid || !passValid) {
+    console.log("bad email or password")
+    return
   } 
+  if(!validateUser(emailInput.value, passwordInput.value)) {
+    console.log("not a valid user")
+    return
+  }
+  window.location.assign('http://localhost:5173/dashboard/') // replace with actual web URL
 });
