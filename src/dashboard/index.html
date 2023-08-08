@@ -7,9 +7,39 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <div class="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 w-screen h-screen">
-      <h1 class="text-4xl font-bold my-6 text-center row-span-1 md:row-span-2 lg:row-span-3">Check In</h1>
-      
+    <template>
+      <div class="card bg-slate-200/25 hover:bg-white p-4 rounded-lg border-2 hover:border-slate-400 transition-all">
+        <h3 class="font-medium text-xl text-black">Neel Kumar</h3>
+        <p class="text-gray-500">Checked in at <span class="font-bold">7:30 PM</span></p>
+      </div>
+    </template>
+    <div class="absolute bottom-0 right-0 m-6">
+      <a href="/form/" class="rounded-full hover:bg-slate-500 bg-transparent transition-all font-thin text-4xl px-4 pb-2 leading-none aspect-square   text-slate-500 hover:text-white border-2 border-slate-500 hover:border-transparent">+</a>
+    </div>
+    <h1 class="text-4xl font-bold my-6 text-center w-screen">Check In</h1>
+    <div class="grid grid-cols-3 min-w-screen h-screen">
+      <div class="col-span-1 flex flex-col gap-y-4 min-w-[400px] px-3 w-full">
+        <h2 class="text-3xl font-semibold text-center w-full mb-4">Mr. Stratton</h2>
+        <div class="card bg-slate-200/25 hover:bg-white p-4 rounded-lg border-2 hover:border-slate-400 transition-all">
+          <h3 class="font-medium text-xl text-black">Neel Kumar</h3>
+          <p class="text-gray-500">Checked in at <span class="font-bold">7:30 PM</span></p>
+        </div>
+        <div class="card p-4 rounded-lg border-4 border-dashed border-slate-200 flex justify-center items-center place-items-center">
+          <a href="/form/?counselor=stratton" class="rounded-full hover:bg-slate-500 bg-transparent transition-all font-thin text-4xl px-2 leading-7 aspect-square   text-slate-500 hover:text-white border-2 border-slate-500 hover:border-transparent">+</a>
+        </div>
+      </div>
+      <div class="col-span-1 flex flex-col gap-y-4 min-w-[400px] px-3 w-full">
+        <h2 class="text-3xl font-semibold text-center w-full mb-4">Mrs. Wallin</h2>
+        <div class="card p-4 rounded-lg border-4 border-dashed border-slate-200 flex justify-center items-center place-items-center">
+          <a href="/form/?counselor=wallin" class="rounded-full hover:bg-slate-500 bg-transparent transition-all font-thin text-4xl px-2 leading-7 aspect-square   text-slate-500 hover:text-white border-2 border-slate-500 hover:border-transparent">+</a>
+        </div>
+      </div>
+      <div class="col-span-1 flex flex-col gap-y-4 min-w-[400px] px-3 w-full">
+        <h2 class="text-3xl font-semibold text-center w-full mb-4">Mrs. McGavin-Wiedlich</h2>
+        <div class="card p-4 rounded-lg border-4 border-dashed border-slate-200 flex justify-center items-center place-items-center">
+          <a href="/form/?counselor=mcgavin" class="rounded-full hover:bg-slate-500 bg-transparent transition-all font-thin text-4xl px-2 leading-7 aspect-square   text-slate-500 hover:text-white border-2 border-slate-500 hover:border-transparent">+</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>
