@@ -21,7 +21,7 @@ passwordInput.addEventListener("keyup", (e) => {
       // Updating class and icon of requirement item if requirement matched or not
       if (isValid) {
           requirementItem.classList.add("valid");
-          requirementItem.firstElementChild.className = "fa-solid fa-check text-red-500";
+          requirementItem.firstElementChild.className = "fa-solid fa-check";
       } else {
           requirementItem.classList.remove("valid");
           allValid = false;

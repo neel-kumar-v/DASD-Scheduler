@@ -41,6 +41,12 @@
   font-size: 0.7rem;
   color: #4285F4;
 }
+
+.requirement-list li:not(.valid) i {
+  font-size: 0.7rem;
+  color: #ff2f00;
+}
+
 .requirement-list li span {
   margin-left: 12px;
   color: #333;
