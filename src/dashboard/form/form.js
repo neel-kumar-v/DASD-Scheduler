@@ -1,4 +1,4 @@
-import { getQueryVariable } from "../util";
+import { getQueryVariable } from "../../util";
 
 let counselor;
 window.onload = function() {
@@ -7,4 +7,5 @@ window.onload = function() {
     //create a tailwind h1 with the var
     counselor = getQueryVariable('counselor')
 }
+
 
