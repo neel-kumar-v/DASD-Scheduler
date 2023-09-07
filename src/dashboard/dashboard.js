@@ -8,7 +8,6 @@ const testData = [
         grade: "9",
         counselor: "stratton",
         date: Date.now(),
-        anonymity: "anonymous"
     },
     {
         firstName: "Jane",
@@ -18,7 +17,6 @@ const testData = [
         grade: "9",
         counselor: "wallin",
         date: Date.now(),
-        anonymity: "public"
     }
 ]
 
@@ -28,12 +26,14 @@ window.onload = function() {
     testData.forEach((person) => {
         console.log(person)
         const clone = template.content.cloneNode(true);
-        clone.querySelector('#person-name').textContent = person.firstName + " " + person.lastName;
+        clone.querySelector('#person-name').textContent = "**** *****";
         clone.querySelector('#checkin-time').textContent = formatTime(person.date);
         const containers = document.querySelectorAll('.col-span-1.flex.flex-col');
         containers.forEach((container) => {
             if (container.id !== person.counselor) return
+            console.log(clone)
             container.insertBefore(clone, container.lastChild)
+            
         })
     })
 }

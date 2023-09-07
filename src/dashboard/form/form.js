@@ -30,7 +30,6 @@ function handleSubmit() {
     const reason = document.querySelector("select[name='reason']").value;
     const grade = document.querySelector("input[name='grade']:checked").value;
     const counselor = document.querySelector("input[name='counselor']:checked").value;
-    const anonymity = document.querySelector("input[name='anonymity']:checked").value;
 
     const firebaseData = {
         firstName: firstName,
@@ -40,7 +39,6 @@ function handleSubmit() {
         grade: grade,
         counselor: counselor,
         date: date,
-        anonymity: anonymity,
     }
 
 }
