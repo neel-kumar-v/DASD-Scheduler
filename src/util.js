@@ -1,12 +1,17 @@
 function getQueryVariable(variable)
 {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
+    return new URLSearchParams(window.location.search).get(variable); 
 }
 
-export { getQueryVariable };
+function setQueryVariable(variable, value) {
+    new URLSearchParams(window.location.search).set(variable, value);
+}
+
+function formatDate(date) {
+    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`;
+}
+function formatTime(date) {
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}
+
+export { getQueryVariable, setQueryVariable, formatDate, formatTime };
