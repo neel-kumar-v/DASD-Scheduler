@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scheduler - Dashboard</title>
     <link rel="stylesheet" href="/style.css">
+    <script type="module" src="./reports.js"></script>
   </head>
   <body class="bg-gray-100">
     <navbar-component></navbar-component>
@@ -16,44 +17,69 @@
       </div>
       <div class="h-full w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex place-items-center justify-center flex-col">
         <h1 class="text-8xl font-bold">17</h1>
-        <h3 class="text-2xl font-semibold">meetings this month</h3>
+        <h3 id="monthly-meetings" class="text-2xl font-semibold">meetings this month</h3>
       </div>
       <div class="h-full w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex place-items-center justify-center flex-col">
         <h1 class="text-8xl font-bold">4</h1>
-        <h3 class="text-2xl font-semibold">meetings this week</h3>
+        <h3 id="weekly-meetings" class="text-2xl font-semibold">meetings this week</h3>
       </div>
       <!-- Turn into graph, or if no time, then keep it as a card -->
     </div>
     <div class="container mx-auto bg-black/25 h-[130vh] rounded-lg "> <!-- ! Change height to fit after design -->
       <!-- Search Filter function -->
       
-      <div class="w-full h-16 bg-black rounded-t-lg">
+      <div class="w-full h-16 bg-white/25 rounded-t-lg">
         <form action="" class="px-4">
-          <div class="flex">
-            <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 dark:border-gray-700 dark:text-white rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" type="button">All categories <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg></button>
-                  <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                      <li>
-                          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shopping</a>
-                      </li>
-                      <li>
-                          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Images</a>
-                      </li>
-                      <li>
-                          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">News</a>
-                      </li>
-                      <li>
-                          <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Finance</a>
-                      </li>
-                      </ul>
-                  </div>
-            <div class="relative z-0 w-full mb-6 group">
+          <div class="flex flex-row gap-x-3">
+            <div class="relative z-0 group">
               <input type="Name" name="floating_Name" id="floating_Name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
               <label for="floating_Name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Student Name</label>
             </div>
-          </div>
+            <div class="flex flex-col">
+              <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                Counselor
+                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                </svg>
+              </button>
+              
+              <!-- Dropdown menu -->
+              <div id="filterDropdown" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                  <li class="flex items-center">
+                    <input id="apple" type="checkbox" value=""
+                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                    <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      Hewitt
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="fitbit" type="checkbox" value=""
+                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                    <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      Stratton
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="dell" type="checkbox" value=""
+                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                    <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      Wallin
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="asus" type="checkbox" value="" checked
+                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                    <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      Glowik
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+          
+        </div>
           
         </form>
       </div>
