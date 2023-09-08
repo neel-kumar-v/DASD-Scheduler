@@ -1,6 +1,10 @@
 import { getQueryVariable, setQueryVariable } from "../../util";
+import { addDoc, collection } from 'firebase/firestore'
 
+const db = getFirestore(app);
 let counselor;
+let docRef;
+
 window.onload = function() {
     console.log("onload function");
     // getQueryVariable('counselor')
@@ -17,10 +21,11 @@ const firebaseTemplate = {
     email: "24nkumar@student.dasd.org",
     reason: "Scheduled Visit/Meeting",
     grade: "10",
-    counselor: "McGavin-Wiedlich",
+    counselor: "hewitt",
     date: Date.now(),
+    active: true
 }
-function handleSubmit() {
+async function handleSubmit() {
     //get all the query params
     const date = Date.now()
     // const formattedDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`;
@@ -39,7 +44,15 @@ function handleSubmit() {
         grade: grade,
         counselor: counselor,
         date: date,
+        active: true
     }
+
+    try {
+        docRef = await addDoc(collection(db, 'checkin'), firebaseData)
+    } catch {
+        console.error("Document add threw error:", e)
+    }
+
 
 }
 
