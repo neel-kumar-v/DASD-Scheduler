@@ -1,4 +1,4 @@
-import { getQueryVariable, setQueryVariable } from "../../util";
+import { getQueryVariable, setQueryVariable } from "../util";
 import { addDoc, collection } from 'firebase/firestore'
 
 const db = getFirestore(app);

@@ -1,3 +1,5 @@
+import { collection } from 'firebase/firestore'
+
 
 Highcharts.chart('container', {
   chart: {
@@ -24,3 +26,8 @@ Highcharts.chart('container', {
     data: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65]
   }]
 });
+
+let q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*365)))
+let querySnapshot = await getDocs(q)
+
+document.getElementById('yearly-meetings')
