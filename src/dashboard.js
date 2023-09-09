@@ -1,5 +1,5 @@
 import { formatDate, formatTime } from './util.js';
-import { collection } from 'firebase/firestore'
+import { collection, doc, getDoc, getFirestore } from 'firebase/firestore'
 
 const testData = [
     {
@@ -21,6 +21,11 @@ const testData = [
         date: Date.now(),
     }
 ]
+
+delCard = async (item) => {
+    const delDoc = doc(db, checkin, item.id)
+    delDoc.active = false
+}
 
 // onload
 window.onload = async function() {
