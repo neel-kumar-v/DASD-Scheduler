@@ -10,7 +10,7 @@
   <body class="bg-gray-100">
     <navbar-component></navbar-component>
     <!-- Stats at a glance -->
-    <div class="grid container grid-cols-3 grid-rows-1 h-[25vh] mx-auto py-5 gap-x-4 transition-all mb-20">
+    <div class="grid container grid-cols-3 grid-rows-1 h-[25vh] mx-auto py-5 gap-x-4 transition-all mb-12">
       <div class="h-full w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex place-items-center justify-center flex-col">
         <h1 class="text-8xl font-bold">376</h1>
         <h3 id="yearly-meetings" class="text-2xl font-semibold">meetings this year</h3>
@@ -25,18 +25,17 @@
       </div>
       <!-- Turn into graph, or if no time, then keep it as a card -->
     </div>
-    <div class="container mx-auto bg-black/25 h-[130vh] rounded-lg "> <!-- ! Change height to fit after design -->
+    <div class="container mx-auto bg-slate-200 h-[130vh] rounded-lg "> <!-- ! Change height to fit after design -->
       <!-- Search Filter function -->
       
       <div class="w-full h-16 bg-white/25 rounded-t-lg">
-        <form action="" class="px-20 py-3">
+        <form action="" class="px-4 py-3">
           <div class="flex flex-row gap-x-8">
-            <div class="relative z-0 group">
-              <input required type="text" name="lastName" id="lastName" class=" transition-all block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-slate-600 peer" placeholder=" " />
-              <label for="lastName" class="absolute text-sm text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-slate-600 peer-focus:dark:text-slate-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Student Name</label>
+            <div class="searchbox">
+              <input type="search" name="Student Name" id="student-name" placeholder="Student Name..." class="flex justify-center items-center border-[2px] border-slate-100 transition-all bg-white hover:bg-slate-200 focus:bg-slate-200  pl-2 pr-4 py-1.5 rounded-lg placeholder::opacity-0 ">
             </div>
             <div class="flex flex-col">
-              <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+              <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center px-4 py-2 text-sm font-normal text-slate-900 bg-white border border-gray-200 rounded-lg w-auto  hover:bg-slate-100 focus:z-10 h-10 shadow-sm" type="button">
                 Counselor
                 <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -44,33 +43,33 @@
               </button>
               
               <!-- Dropdown menu -->
-              <div id="filterDropdown" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+              <div id="filterDropdown" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow ">
                 <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
                   <li class="flex items-center">
                     <input id="hewitt" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="hewitt" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="hewitt" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Hewitt
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="stratton" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="stratton" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="stratton" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Stratton
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="wallin" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="wallin" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="wallin" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Wallin
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="glowik" type="checkbox" value="" checked
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="glowik" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="glowik" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Glowik
                     </label>
                   </li>
@@ -78,16 +77,16 @@
               </div>
             </div>
 
-            <label for="start" class="w-max p-2 bg-white  text-gray-400 rounded-lg shadow dark:bg-gray-800 h-10">Start date:             
-              <input type="date" id="start" name="end-date" value="2023-09-12" min="2023-07-22" class="bg-gray-800"/>
+            <label for="start" class="w-max p-2 bg-white  text-slate-900 rounded-lg shadow hover:bg-slate-100 h-10">Start date:             
+              <input type="date" id="start" name="end-date" value="2023-09-12" min="2023-07-22" class="bg-white hover:bg-slate-100"/>
             </label>
-            <label for="end-date" class="w-max text-gray-400 p-2 bg-white rounded-lg shadow dark:bg-gray-800 h-10">End date:
-              <input type="date" id="end-date" name="end-date" value="2023-07-23" min="2023-09-08" class="bg-gray-800"/>
+            <label for="end-date" class="w-max text-slate-900 p-2 bg-white rounded-lg shadow hover:bg-slate-100 h-10">End date:
+              <input type="date" id="end-date" name="end-date" value="2023-07-23" min="2023-09-08" class="bg-white hover:bg-slate-100"/>
             </label>
 
 
             <div class="flex flex-col">
-              <button id="filterDropdownButton2" data-dropdown-toggle="filterDropdown2" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+              <button id="filterDropdownButton2" data-dropdown-toggle="filterDropdown2" class="flex items-center justify-center px-4 py-2 text-sm font-normal text-slate-900 bg-white border border-gray-200 rounded-lg w-auto  hover:bg-slate-100 focus:z-10 h-10 shadow-sm" type="button">
                 Reason for Meeting
                 <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -95,69 +94,68 @@
               </button>
               
               <!-- Dropdown menu -->
-              <div id="filterDropdown2" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+              <div id="filterDropdown2" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow ">
                 <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
                   <li class="flex items-center">
                     <input id="schedule" type="checkbox" value="" checked
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="schedule" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="schedule" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Schedule Question/Concern
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="mental" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="personal" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="personal" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Personal or Mental Health Check In
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="friend" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="friend" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="friend" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       I'm concerned about a friend
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="organization" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="organization" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="organization" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Organization/Time Management Help
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="college" type="checkbox" value="" 
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="college" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="college" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       College/Career
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="yearly" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="yearly" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="yearly" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Yearly Meeting (Freshman, Sophomore, Junior, Senior Meeting)
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="IEP/504" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="IEP/504" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="IEP/504" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       IEP/504/Meeting with School Psychologist
                     </label>
                   </li>
                   <li class="flex items-center">
                     <input id="class" type="checkbox" value=""
-                      class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                    <label for="class" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="class" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Class/Grade Concern
                     </label>
                   </li>
                 </ul>
               </div>
             </div>
-            
-          
+
           </div>
           
         </form>
