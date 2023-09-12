@@ -25,15 +25,16 @@
       </div>
       <!-- Turn into graph, or if no time, then keep it as a card -->
     </div>
-    <div class="container mx-auto bg-slate-200 h-[130vh] rounded-lg "> <!-- ! Change height to fit after design -->
+    <div class="container mx-auto  h-fit bg-slate-200/50 rounded-lg "> <!-- ! Change height to fit after design -->
       <!-- Search Filter function -->
       
-      <div class="w-full h-16 bg-white/25 rounded-t-lg">
+      <div class="w-full h-16  rounded-t-lg">
         <form action="" class="px-4 py-3">
           <div class="flex flex-row gap-x-8">
             <div class="searchbox">
               <input type="search" name="Student Name" id="student-name" placeholder="Student Name..." class="flex justify-center items-center border-[2px] border-slate-100 transition-all bg-white hover:bg-slate-200 focus:bg-slate-200  pl-2 pr-4 py-1.5 rounded-lg placeholder::opacity-0 ">
             </div>
+            
             <div class="flex flex-col">
               <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center px-4 py-2 text-sm font-normal text-slate-900 bg-white border border-gray-200 rounded-lg w-auto  hover:bg-slate-100 focus:z-10 h-10 shadow-sm" type="button">
                 Counselor
@@ -71,6 +72,49 @@
                       class="w-4 h-4 rounded text-slate-900" />
                     <label for="glowik" class="ml-2 text-sm font-normal text-slate-800 select-none">
                       Glowik
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <button id="filterDropdownButton3" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center px-4 py-2 text-sm font-normal text-slate-900 bg-white border border-gray-200 rounded-lg w-auto  hover:bg-slate-100 focus:z-10 h-10 shadow-sm" type="button">
+                Grade
+                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                </svg>
+              </button>
+              
+              <!-- Dropdown menu -->
+              <div id="filterDropdown3" class="z-10 hidden w-max p-3 bg-white rounded-lg shadow ">
+                <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                  <li class="flex items-center">
+                    <input id="grade9" type="checkbox" value=""
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="grade9" class="ml-2 text-sm font-normal text-slate-800 select-none">
+                      9
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="grade10" type="checkbox" value=""
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="grade10" class="ml-2 text-sm font-normal text-slate-800 select-none">
+                      10
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="grade11" type="checkbox" value=""
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="grade11" class="ml-2 text-sm font-normal text-slate-800 select-none">
+                      11
+                    </label>
+                  </li>
+                  <li class="flex items-center">
+                    <input id="grade12" type="checkbox" value="" checked
+                      class="w-4 h-4 rounded text-slate-900" />
+                    <label for="grade12" class="ml-2 text-sm font-normal text-slate-800 select-none">
+                      12
                     </label>
                   </li>
                 </ul>
@@ -160,6 +204,89 @@
           
         </form>
       </div>
+
+      <hr
+        class=" mx-12 h-0.5 border-t-0  opacity-100 "
+       
+      />
+      
+      <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-center text-gray-500">
+              <thead class="text-xs text-gray-700 uppercase ">
+                  <tr>
+                      <th scope="col" class="px-6 py-3">
+                          First Name
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Last Name
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Counselor
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Grade
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Date
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Reason
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Email
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                <template id="student-entry">
+                  <tr class="odd:bg-white even:bg-gray-50 border-b">
+                      <th class="px-6 py-4 text-gray-500 font-normal group">
+                          <a href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org" class="group-hover:underline" target="_blank">Neel</a>
+                      </th>
+                      <td class="px-6 py-4 group">
+                          <a href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org" class="group-hover:underline" target="_blank">Kumar</a>
+                      </td>
+                      <td class="px-6 py-4">
+                          Hewitt
+                      </td>
+                      <td class="px-6 py-4">
+                          11
+                      </td>
+                      <td class="px-6 py-4">
+                          09/23/23
+                      </td>
+                      <td class="px-6 py-4">
+                          I'm concerned about a friend
+                      </td>
+                    
+                  </tr>
+                </template>
+                  <tr class="odd:bg-white even:bg-gray-50 border-b">
+                      <th class="px-6 py-4 text-gray-500 font-normal group">
+                          <a href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org" class="group-hover:underline" target="_blank">Neel</a>
+                      </th>
+                      <td class="px-6 py-4 group">
+                          <a href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org" class="group-hover:underline" target="_blank">Kumar</a>
+                      </td>
+                      <td class="px-6 py-4">
+                          Hewitt
+                      </td>
+                      <td class="px-6 py-4">
+                          11
+                      </td>
+                      <td class="px-6 py-4">
+                          09/23/23
+                      </td>
+                      <td class="px-6 py-4">
+                          I'm concerned about a friend
+                      </td>
+                    
+                  </tr>
+                 
+              </tbody>
+          </table>
+      </div>
+
       <!-- Table -->
     </div>
     

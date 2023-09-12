@@ -1,3 +1,4 @@
+import { collection } from 'firebase/firestore'
 
 // Frontend
 
@@ -11,8 +12,53 @@ const reasonFilterDropdown = document.getElementById('filterDropdown2')
 reasonFilterDropdownButton.addEventListener('click', () => {
   reasonFilterDropdown.classList.toggle('hidden')
 })
+const gradeFilterDropdownButton = document.getElementById('filterDropdownButton3')
+const gradeFilterDropdown = document.getElementById('filterDropdown3')
+gradeFilterDropdownButton.addEventListener('click', () => {
+  gradeFilterDropdown.classList.toggle('hidden')
+})
 
-import { collection } from 'firebase/firestore'
+const testData = [
+    {
+        firstName: "John",
+        lastName: "Doe",
+        email: "jdoe@gmail.com",
+        reason: "I want to know more about your products",
+        grade: "9",
+        counselor: "stratton",
+        date: Date.now(),
+    },
+    {
+        firstName: "Jane",
+        lastName: "Doe",
+        email: "jdoe@email.com",
+        reason: "I want to know more about your products",
+        grade: "9",
+        counselor: "wallin",
+        date: Date.now(),
+    }
+]
+
+window.onload =  function() {
+
+  let template = document.getElementById('student-entry') 
+  testData.forEach((person) => {
+    // console.log(person)
+    const clone = template.content.cloneNode(true);
+    const elements = clone.childNodes[1].children
+    // console.log(elements)
+    elements[0].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${person.email}" class="group-hover:underline" target="_blank">${person.firstName}</a>`;
+    elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${person.email}" class="group-hover:underline" target="_blank">${person.lastName}</a>`;    
+    elements[2].innerHTML = person.counselor
+    elements[3].innerHTML = person.grade
+    elements[4].innerHTML = person.reason
+    // elements[5].innerHTML = person.email
+  })
+}
+
+
+// Backend
+
 
 
 // Highcharts.chart('container', {
@@ -41,17 +87,17 @@ import { collection } from 'firebase/firestore'
 //   }]
 // });
 
-window.onload() = async function() {
-  let q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*365)))
-  let querySnapshot = await getDocs(q)
-  document.getElementById('yearly-meetings').innerText = querySnapshot.length;
-  q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*30)))
-  querySnapshot = await getDocs(q)
-  document.getElementById('monthly-meetings').innerText = querySnapshot.length;
-  q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*7)))
-  querySnapshot = await getDocs(q)
-  document.getElementById('weekly-meetings').innerText = querySnapshot.length;
-}
+// window.onload() = async function() {
+//   let q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*365)))
+//   let querySnapshot = await getDocs(q)
+//   document.getElementById('yearly-meetings').innerText = querySnapshot.length;
+//   q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*30)))
+//   querySnapshot = await getDocs(q)
+//   document.getElementById('monthly-meetings').innerText = querySnapshot.length;
+//   q = query(collection(db, 'checkin'), where('date', '<=', date.now()-(1000*86400*7)))
+//   querySnapshot = await getDocs(q)
+//   document.getElementById('weekly-meetings').innerText = querySnapshot.length;
+// }
 
 
             
