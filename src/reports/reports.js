@@ -1,4 +1,6 @@
 import { collection } from 'firebase/firestore'
+import { db } from '../firebase.js'
+import { formatTime, formatDate } from '../util.js'
 
 // Frontend
 
@@ -16,6 +18,11 @@ const gradeFilterDropdownButton = document.getElementById('filterDropdownButton3
 const gradeFilterDropdown = document.getElementById('filterDropdown3')
 gradeFilterDropdownButton.addEventListener('click', () => {
   gradeFilterDropdown.classList.toggle('hidden')
+})
+const dateFilterDropdownButton = document.getElementById('filterDropdownButton4')
+const dateFilterDropdown = document.getElementById('filterDropdown4')
+dateFilterDropdownButton.addEventListener('click', () => {
+  dateFilterDropdown.classList.toggle('hidden')
 })
 
 const testData = [
@@ -51,10 +58,18 @@ window.onload =  function() {
     elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${person.email}" class="group-hover:underline" target="_blank">${person.lastName}</a>`;    
     elements[2].innerHTML = person.counselor
     elements[3].innerHTML = person.grade
-    elements[4].innerHTML = person.reason
+    elements[4].innerHTML = formatDate(person.date)
+    elements[5].innerHTML = person.reason
     // elements[5].innerHTML = person.email
+    const container = document.getElementById('student-entries')
+    container.appendChild(clone)
+
   })
 }
+
+
+
+
 
 
 // Backend

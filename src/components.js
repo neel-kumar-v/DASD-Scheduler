@@ -26,16 +26,7 @@ class Navbar extends HTMLElement {
         <li><a class="text-sm text-gray-400 hover:text-gray-500 hover:font-bold" href="/login/">Reports</a></li>
 
     </nav>
-
-
-    
     `
-    const retractButton = this.querySelector("#retract");
-    const navbar = this.querySelector("nav");
-
-    retractButton.addEventListener("click", () => {
-      navbar.classList.toggle("retract");
-    });
   }
 }
 
