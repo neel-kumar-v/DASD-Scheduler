@@ -2,28 +2,9 @@ class Navbar extends HTMLElement {
   constructor() {
     super();
   }
-  determineLogin() {
-    let login = `
-    <li class="text-gray-300">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-    </svg>
-    </li>
-    <li><a class="text-sm text-gray-400 hover:text-gray-500 hover:font-bold" href="/login/">Login</a></li>`
 
-    let logout = `<a class="inline-block ml-auto mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" href="#">Log Out</a>`
-    let html =`</ul>`
-    let finalHTML = ''
-    let loggedIn = false
-    if(loggedIn) {
-      finalHTML = html + logout
-    } else {
-      finalHTML = login + html
-    }
-    return finalHTML
-  }
   connectedCallback() {
-    const finalHTML = this.determineLogin()
+
     this.innerHTML = 
     `
     <style>
@@ -43,12 +24,7 @@ class Navbar extends HTMLElement {
           </svg>
         </li>
         <li><a class="text-sm text-gray-400 hover:text-gray-500 hover:font-bold" href="/login/">Reports</a></li>
-        ${finalHTML}
-      <button class="inline-block  aspect-square w-6 bg-gray-50 hover:bg-gray-100 text-xl text-black font-bold rounded-full outline outline-offset-1 outline-1 outline-black transition duration-200" id="retract" >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"/>
-        </svg>
-      </button>
+
     </nav>
 
 

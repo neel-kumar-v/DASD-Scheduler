@@ -1,7 +1,8 @@
 import { getQueryVariable, setQueryVariable } from "../util";
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, getFirestore } from 'firebase/firestore'
+import { db } from '../firebase.js'
 
-const db = getFirestore(app);
+
 let counselor;
 let docRef;
 
@@ -52,6 +53,8 @@ async function handleSubmit() {
     } catch {
         console.error("Document add threw error:", e)
     }
+
+    
 
 
 }

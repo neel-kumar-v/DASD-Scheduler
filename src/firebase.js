@@ -29,4 +29,4 @@ function validateUser(email, password) {
   // return true or false
   return true
 }
-export { validateUser }
+export { validateUser, db, app }

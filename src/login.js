@@ -78,5 +78,5 @@ submitButton.addEventListener("click", (e) => {
     console.log("not a valid user")
     return
   }
-  window.location.assign('http://localhost:5173/dashboard/') // replace with actual web URL
+  window.location.assign('http://localhost:5173/reports/') // replace with actual web URL
 });
