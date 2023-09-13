@@ -8,8 +8,18 @@ function setQueryVariable(variable, value) {
 }
 
 function formatDate(date) {
+    // console.log(date)
     const dateTime = new Date(date)
-    return `${dateTime.getMonth()}/${dateTime.getDay()}/${dateTime.getFullYear()}`;
+    let day = dateTime.getDay().toString();
+    if(day.length == 1) {
+        day = `0${day}`
+    }
+    let month = dateTime.getMonth().toString();
+    if(month.length == 1) {
+        month = `0${month}`
+    }
+    let year = dateTime.getFullYear().toString().slice(2);
+    return `${month}/${day}/${year}`;
 }
 function formatTime(date) {
     const dateTime = new Date(date)

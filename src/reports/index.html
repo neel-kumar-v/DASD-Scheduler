@@ -48,7 +48,7 @@
           <div class="flex flex-row gap-x-8">
             <div class="searchbox">
               <input
-                type="search"
+                type="text"
                 name="Student Name"
                 id="student-name"
                 placeholder="Student Name..."
@@ -132,7 +132,6 @@
                       id="glowik"
                       type="checkbox"
                       value=""
-                      checked
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -284,13 +283,13 @@
                 <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
                   <li class="flex items-center">
                     <input
-                      id="grade9"
+                      id="9"
                       type="checkbox"
                       value=""
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
-                      for="grade9"
+                      for="9"
                       class="ml-2 text-sm font-normal text-slate-800 select-none"
                     >
                       9
@@ -298,13 +297,13 @@
                   </li>
                   <li class="flex items-center">
                     <input
-                      id="grade10"
+                      id="10"
                       type="checkbox"
                       value=""
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
-                      for="grade10"
+                      for="10"
                       class="ml-2 text-sm font-normal text-slate-800 select-none"
                     >
                       10
@@ -312,13 +311,13 @@
                   </li>
                   <li class="flex items-center">
                     <input
-                      id="grade11"
+                      id="11"
                       type="checkbox"
                       value=""
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
-                      for="grade11"
+                      for="11"
                       class="ml-2 text-sm font-normal text-slate-800 select-none"
                     >
                       11
@@ -326,14 +325,13 @@
                   </li>
                   <li class="flex items-center">
                     <input
-                      id="grade12"
+                      id="12"
                       type="checkbox"
                       value=""
-                      checked
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
-                      for="grade12"
+                      for="12"
                       class="ml-2 text-sm font-normal text-slate-800 select-none"
                     >
                       12
@@ -403,8 +401,7 @@
                     <input
                       id="schedule"
                       type="checkbox"
-                      value=""
-                      checked
+                      value="Schedule Question/Concern"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -418,7 +415,7 @@
                     <input
                       id="mental"
                       type="checkbox"
-                      value=""
+                      value="Personal or Mental Health Check In"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -432,7 +429,7 @@
                     <input
                       id="friend"
                       type="checkbox"
-                      value=""
+                      value="I'm concerned about a friend"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -446,7 +443,7 @@
                     <input
                       id="organization"
                       type="checkbox"
-                      value=""
+                      value="Organization/Time Management Help"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -460,7 +457,7 @@
                     <input
                       id="college"
                       type="checkbox"
-                      value=""
+                      value="College/Career"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -474,7 +471,8 @@
                     <input
                       id="yearly"
                       type="checkbox"
-                      value=""
+                      value="Yearly Meeting (Freshman, Sophomore, Junior, Senior
+                      Meeting)"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -489,7 +487,7 @@
                     <input
                       id="IEP/504"
                       type="checkbox"
-                      value=""
+                      value="IEP/504/Meeting with School Psychologist"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -503,7 +501,7 @@
                     <input
                       id="class"
                       type="checkbox"
-                      value=""
+                      value="Class/Grade Concern"
                       class="w-4 h-4 rounded text-slate-900"
                     />
                     <label
@@ -518,14 +516,20 @@
             </div>
 
             <button
-              id="filterDropdownButton2"
-              data-dropdown-toggle="filterDropdown2"
+              id="filterButton"
+              data-dropdown-toggle="filterButton"
               class="flex items-center justify-center px-4 py-2 text-sm font-normal text-slate-900 bg-white border border-gray-200 rounded-lg w-auto hover:bg-slate-100 focus:z-10 h-10 shadow-sm transition-all"
               type="button"
-            >    
+            >
               Filter
-              <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="-mr-1 ml-1.5 h-full aspect-square stroke-white fill-black">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="-mr-1 ml-1.5 h-full aspect-square stroke-white fill-black"
+              >
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
               </svg>
             </button>
           </div>
@@ -535,7 +539,10 @@
       <hr class="mx-12 h-0.5 border-t-0 opacity-100" />
 
       <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-center text-gray-500">
+        <table
+          class="w-full text-sm text-center text-gray-500"
+          id="table-student-entries"
+        >
           <thead class="text-xs text-gray-700 uppercase">
             <tr>
               <th scope="col" class="px-6 py-3">First Name</th>
@@ -549,14 +556,14 @@
           <tbody id="student-entries">
             <template id="student-entry">
               <tr class="odd:bg-white even:bg-gray-50 border-b">
-                <th class="px-6 py-4 text-gray-500 font-normal group">
+                <td class="px-6 py-4 text-gray-500 font-normal group">
                   <a
                     href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
                     class="group-hover:underline"
                     target="_blank"
                     >Neel</a
                   >
-                </th>
+                </td>
                 <td class="px-6 py-4 group">
                   <a
                     href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
@@ -572,14 +579,14 @@
               </tr>
             </template>
             <tr class="odd:bg-white even:bg-gray-50 border-b">
-              <th class="px-6 py-4 text-gray-500 font-normal group">
+              <td class="px-6 py-4 text-gray-500 font-normal group">
                 <a
                   href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
                   class="group-hover:underline"
                   target="_blank"
                   >Neel</a
                 >
-              </th>
+              </td>
               <td class="px-6 py-4 group">
                 <a
                   href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
