@@ -26,8 +26,11 @@ const firebaseTemplate = {
   date: Date.now(),
   active: true,
 };
+
+
 document.getElementById("submit-button").onclick =
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault();
     console.log("hello");
     //get all the query params
     const date = Date.now();
@@ -35,7 +38,6 @@ document.getElementById("submit-button").onclick =
     const firstName = document.querySelector(
       "form[name='main'] input[name='firstName']"
     ).value;
-    console.log(firstName);
     const lastName = document.querySelector(
       "form[name='main'] input[name='lastName']"
     ).value;
@@ -67,6 +69,7 @@ document.getElementById("submit-button").onclick =
 
     try {
       docRef = await addDoc(collection(db, "checkin"), firebaseData);
+      history.back()
     } catch {
       console.error("Document add threw error:", e);
     }

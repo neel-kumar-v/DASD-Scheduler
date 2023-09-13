@@ -31,10 +31,10 @@ const testData = [
   },
 ];
 
-async function delCard(item) {
-  const delDoc = doc(db, checkin, item.id);
-  delDoc.active = false;
+delBtn = document.getElementById('deleteButton')
+if (delBtn != null) {
 }
+
 
 function verifyDoc(doc) {
   isExisting = document.getElementById(doc.id);
@@ -46,48 +46,31 @@ function verifyDoc(doc) {
 // onload
 window.onload = async function () {
   let template = document.getElementById("person-card");
-  //   testData.forEach((person) => {
-  //     console.log(person);
-  //     const clone = template.content.cloneNode(true);
-  //     clone.querySelector("#person-name").textContent =
-  //       person.firstName + " " + person.lastName;
-  //     clone.querySelector("#checkin-time").textContent = formatTime(person.date);
-  //     const containers = document.querySelectorAll(".col-span-1.flex.flex-col");
-  //     containers.forEach((container) => {
-  //       if (container.id !== person.counselor) return;
-  //       console.log(container.lastElementChild);
-  //       container.insertBefore(clone, container.lastElementChild);
-  //     });
-  //   });
-
   let q = query(collection(db, "checkin"), where("active", "==", true));
-
   let querySnapshot = await getDocs(q);
   console.log(querySnapshot);
 
-  querySnapshot.forEach((docitem) => {
-    const docSnap = getDoc(doc(db, "checkin", doc.id));
-    console.log(docSnap.firstName);
-    getDoc();
+  querySnapshot.forEach((doc) => {
+    console.log(doc.data())
     try {
-      verifyDoc(docitem);
-      if (Date.now() - docitem.date == 1800000) {
+      verifyDoc(doc);
+      if (Date.now() - doc.data().date == 1800000) {
         docSnap.active = false;
       }
     } catch {
       const clone = template.content.cloneNode(true);
       const cloneDOM = clone.querySelector(".person-card");
-      cloneDOM.id = docitem.id;
+      cloneDOM.id = doc.id;
       console.log(cloneDOM);
       cloneDOM.querySelector("#person-name").textContent =
-        doc.firstName + " " + doc.lastName;
+        doc.data().firstName + " " + doc.data().lastName;
       cloneDOM.querySelector("#checkin-time").textContent = formatTime(
-        doc.date
+        doc.data().date
       );
       console.log(cloneDOM);
       const containers = document.querySelectorAll(".col-span-1.flex.flex-col");
       containers.forEach((container) => {
-        if (container.id !== doc.counselor) return;
+        if (container.id !== doc.data().counselor) return;
         console.log(container.lastElementChild);
         container.insertBefore(cloneDOM, container.lastElementChild);
       });
