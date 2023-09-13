@@ -31,10 +31,6 @@ const testData = [
   },
 ];
 
-delBtn = document.getElementById('deleteButton')
-if (delBtn != null) {
-}
-
 
 function verifyDoc(doc) {
   isExisting = document.getElementById(doc.id);
@@ -48,32 +44,37 @@ window.onload = async function () {
   let template = document.getElementById("person-card");
   let q = query(collection(db, "checkin"), where("active", "==", true));
   let querySnapshot = await getDocs(q);
-  console.log(querySnapshot);
 
   querySnapshot.forEach((doc) => {
-    console.log(doc.data())
     try {
       verifyDoc(doc);
-      if (Date.now() - doc.data().date == 1800000) {
-        docSnap.active = false;
-      }
     } catch {
-      const clone = template.content.cloneNode(true);
-      const cloneDOM = clone.querySelector(".person-card");
-      cloneDOM.id = doc.id;
-      console.log(cloneDOM);
-      cloneDOM.querySelector("#person-name").textContent =
-        doc.data().firstName + " " + doc.data().lastName;
-      cloneDOM.querySelector("#checkin-time").textContent = formatTime(
-        doc.data().date
-      );
-      console.log(cloneDOM);
-      const containers = document.querySelectorAll(".col-span-1.flex.flex-col");
-      containers.forEach((container) => {
-        if (container.id !== doc.data().counselor) return;
-        console.log(container.lastElementChild);
-        container.insertBefore(cloneDOM, container.lastElementChild);
-      });
+      if (Date.now() - doc.data().date >= 86400000) {
+        console.log('hi')
+        doc.data().active = false;
+      } else {
+        const clone = template.content.cloneNode(true);
+        const cloneDOM = clone.querySelector(".person-card");
+        cloneDOM.id = doc.id;
+        cloneDOM.querySelector("#person-name").textContent =
+          doc.data().firstName + " " + doc.data().lastName;
+        cloneDOM.querySelector("#checkin-time").textContent = formatTime(
+          doc.data().date
+        );
+        
+        // cloneDOM.querySelector("deleteButton").addEventListener('click', function (event) {
+        //   parent = event.parentNode
+        //   console.log(parent)
+        //   const delDoc = doc(db, checkin, cloneDOM.id);
+        //   delDoc.data().active = false;
+        //   location.reload()
+        // })
+        const containers = document.querySelectorAll(".col-span-1.flex.flex-col");
+        containers.forEach((container) => {
+          if (container.id !== doc.data().counselor) return;
+          container.insertBefore(cloneDOM, container.lastElementChild);
+        });
+      }
     }
   });
 };
