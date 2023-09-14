@@ -349,7 +349,7 @@ window.onload = function () {
   });
 };
 
-var input, filter, table, tr, td, i, txtValue;
+var input, filter, table, tr, firstName, lastName, i, firstNameTextValue, lastNameTextValue;
 input = document.getElementById("student-name");
 table = document.getElementById("table-student-entries");
 tr = table.getElementsByTagName("tr");
@@ -359,13 +359,23 @@ function nameSearch() {
   filter = input.value.toUpperCase();
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      const element = td.children[0];
-      txtValue = element.textContent;
-      txtValue = txtValue.toUpperCase();
-      console.log(txtValue, filter);
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    firstName = tr[i].getElementsByTagName("td")[0];
+    lastName = tr[i].getElementsByTagName("td")[1];
+    if (firstName) {
+      const firstNameElement = firstName.children[0];
+      firstNameTextValue = firstNameElement.textContent;
+      firstNameTextValue = firstNameTextValue.toUpperCase();
+      // console.log(firstNameTextValue, filter);
+
+
+      const lastNameElement = lastName.children[0];
+      lastNameTextValue = lastNameElement.textContent;
+      lastNameTextValue = lastNameTextValue.toUpperCase();
+      console.log(lastNameTextValue, filter)
+
+      const hasFirstName = firstNameTextValue.indexOf(filter) > -1
+      const hasLastName = lastNameTextValue.indexOf(filter) > -1
+      if (hasFirstName || hasLastName) {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -518,7 +528,7 @@ function applyFilters() {
     const dateMatch = dateColumn <= afterThisDate;
     const reasonMatch = reasonFilters.includes(reasonColumn);
 
-    console.log(reasonMatch, reasonColumn, reasonFilters));
+    console.log(reasonMatch, reasonColumn, reasonFilters);
     // If any of the filters don't, then hide the table row
     if (counselorMatch || !gradeMatch || dateMatch || !reasonMatch) {
       tr[i].style.display = "none";
