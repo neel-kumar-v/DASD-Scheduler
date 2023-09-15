@@ -1,3 +1,4 @@
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { validateUser } from "./firebase.js";
 
 const passwordInput = document.querySelector(".pass-field input");
@@ -5,6 +6,11 @@ const requirementList = document.querySelectorAll(".requirement-list li");
 const submitButton = document.getElementById("submit-button");
 const loginForm = document.getElementById("login-form");
 const studentCounselor = document.getElementById("student-counselor");
+
+
+
+const auth = getAuth();
+
 
 const requirements = [
   { regex: /.{8,}/, index: 0 }, // Minimum of 8 characters
@@ -74,9 +80,15 @@ submitButton.addEventListener("click", (e) => {
     console.log("bad email or password")
     return
   } 
-  if(!validateUser(emailInput.value, passwordInput.value)) {
-    console.log("not a valid user")
-    return
-  }
-  window.location.assign('http://localhost:5173/reports/') // replace with actual web URL
+  signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      window.location.assign('http://localhost:5173/reports/') // replace with actual web URL
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
 });

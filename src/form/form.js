@@ -27,50 +27,50 @@ const firebaseTemplate = {
   active: true,
 };
 
+document.getElementById("submit-button").onclick = async function handleSubmit(
+  event
+) {
+  event.preventDefault();
+  console.log("hello");
+  //get all the query params
+  const date = Date.now();
+  // const formattedDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`;
+  const firstName = document.querySelector(
+    "form[name='main'] input[name='firstName']"
+  ).value;
+  const lastName = document.querySelector(
+    "form[name='main'] input[name='lastName']"
+  ).value;
+  const email = document.querySelector(
+    "form[name='main'] input[name='email']"
+  ).value;
+  const reason = document.querySelector(
+    "form[name='main'] select[name='reason']"
+  ).value;
+  const grade = document.querySelector(
+    "form[name='main'] input[name='grade']:checked"
+  ).value;
+  const counselor = document.querySelector(
+    "form[name='main'] input[name='counselor']:checked"
+  ).value;
 
-document.getElementById("submit-button").onclick =
-  async function handleSubmit(event) {
-    event.preventDefault();
-    console.log("hello");
-    //get all the query params
-    const date = Date.now();
-    // const formattedDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`;
-    const firstName = document.querySelector(
-      "form[name='main'] input[name='firstName']"
-    ).value;
-    const lastName = document.querySelector(
-      "form[name='main'] input[name='lastName']"
-    ).value;
-    const email = document.querySelector(
-      "form[name='main'] input[name='email']"
-    ).value;
-    const reason = document.querySelector(
-      "form[name='main'] select[name='reason']"
-    ).value;
-    const grade = document.querySelector(
-      "form[name='main'] input[name='grade']:checked"
-    ).value;
-    const counselor = document.querySelector(
-      "form[name='main'] input[name='counselor']:checked"
-    ).value;
-
-    const firebaseData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      reason: reason,
-      grade: grade,
-      counselor: counselor,
-      date: date,
-      active: true,
-    };
-
-    console.log(firebaseData);
-
-    try {
-      docRef = await addDoc(collection(db, "checkin"), firebaseData);
-      history.back()
-    } catch {
-      console.error("Document add threw error:", e);
-    }
+  const firebaseData = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    reason: reason,
+    grade: grade,
+    counselor: counselor,
+    date: date,
+    active: true,
   };
+
+  console.log(firebaseData);
+
+  try {
+    docRef = await addDoc(collection(db, "checkin"), firebaseData);
+    history.back();
+  } catch {
+    console.error("Document add threw error:", e);
+  }
+};

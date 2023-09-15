@@ -10,11 +10,11 @@ function setQueryVariable(variable, value) {
 function formatDate(date) {
     // console.log(date)
     const dateTime = new Date(date)
-    let day = dateTime.getDay().toString();
+    let day = dateTime.getDate().toString();
     if(day.length == 1) {
         day = `0${day}`
     }
-    let month = dateTime.getMonth().toString();
+    let month = (dateTime.getMonth() + 1).toString();
     if(month.length == 1) {
         month = `0${month}`
     }
@@ -42,6 +42,8 @@ function formatTime(date) {
 
     return `${formattedHours}:${formattedMinutes} ${meridian}`;
 }
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-
-export { getQueryVariable, setQueryVariable, formatDate, formatTime };
+export { getQueryVariable, setQueryVariable, formatDate, formatTime, capitalizeFirstLetter };
