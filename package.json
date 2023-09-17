@@ -17,6 +17,7 @@
   "dependencies": {
     "chart.js": "^4.3.0",
     "firebase": "^10.0.0",
+    "flatpickr": "^4.6.13",
     "flowbite": "^1.7.0"
   }
 }

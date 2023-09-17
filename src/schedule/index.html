@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scheduler - Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="./schedule.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <navbar-component></navbar-component>
+    <div class="container mx-auto h-fit bg-slate-200/50 rounded-lg">
+      <hr class="mx-12 h-0.5 border-t-0 opacity-100" />
+
+      <div class="relative overflow-x-auto">
+        <table
+          class="w-full text-sm text-center text-gray-500"
+          id="table-student-entries"
+        >
+          <thead class="text-xs text-gray-700 uppercase">
+            <tr>
+              <th scope="col" class="px-6 py-3">First Name</th>
+              <th scope="col" class="px-6 py-3">Last Name</th>
+              <th scope="col" class="px-6 py-3">Counselor</th>
+              <th scope="col" class="px-6 py-3">Grade</th>
+              <th scope="col" class="px-6 py-3">Reason</th>
+              <th scope="col" class="px-6 py-3">Scheduled?</th>
+              <th scope="col" class="px-6 py-3">Date</th>
+            </tr>
+          </thead>
+          <tbody id="student-entries">
+            <template id="student-entry">
+              <tr class="odd:bg-white even:bg-gray-50 border-b">
+                <td class="px-6 py-4 text-gray-500 font-normal group">
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
+                    class="group-hover:underline"
+                    target="_blank"
+                    >Neel</a
+                  >
+                </td>
+                <td class="px-6 py-4 group">
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
+                    class="group-hover:underline"
+                    target="_blank"
+                    >Kumar</a
+                  >
+                </td>
+                <td class="px-6 py-4">Hewitt</td>
+                <td class="px-6 py-4">11</td>
+                <td class="px-6 py-4">I'm concerned about a friend</td>
+                <td class="px-6 py-4">Yes</td>
+                <td class="px-6 py-4"><input type="datetime-local" class="date bg-transparent" placeholder="Assign Date">
+                  <button class="p-2 rounded-full hover:bg-gray-200 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                  </button>  
+                </td>
+              </tr>
+            </template>
+            <tr class="odd:bg-white even:bg-gray-50 border-b">
+              <td class="px-6 py-4 text-gray-500 font-normal group">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
+                  class="group-hover:underline"
+                  target="_blank"
+                  >Neel</a
+                >
+              </td>
+              <td class="px-6 py-4 group">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&to=24nkumar@student.dasd.org"
+                  class="group-hover:underline"
+                  target="_blank"
+                  >Kumar</a
+                >
+              </td>
+              <td class="px-6 py-4">Hewitt</td>
+              <td class="px-6 py-4">11</td>
+              <td class="px-6 py-4">I'm concerned about a friend</td>
+              <td class="px-6 py-4">No</td>
+              <td class="px-6 py-4"><input type="datetime-local" class="date bg-transparent"  placeholder="Assign Date">
+                <button class="p-2 rounded-full hover:bg-gray-200 text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                  </svg>
+                </button>              
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table -->
+    </div>
+  </div>
+
+    <script type="module" src="../components.js"></script>
+    <script type="module" src="../firebase.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  </body>
+</html>
