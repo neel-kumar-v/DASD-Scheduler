@@ -8,7 +8,7 @@
     <script type="module" src="./reports.js"></script>
   </head>
   <body class="bg-gray-100">
-    <navbar-component></navbar-component>
+    <!-- <navbar-component></navbar-component> -->
     <!-- Stats at a glance -->
     <div
       class="grid container grid-cols-3 grid-rows-1 h-[25vh] mx-auto py-5 gap-x-4 transition-all mb-12"
@@ -50,7 +50,7 @@
               />
             </div>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col dropdown-container">
               <button
                 id="filterDropdownButton"
                 data-dropdown-toggle="filterDropdown"
@@ -139,7 +139,7 @@
               </div>
             </div>
 
-            <div class="flex flex-col w-32 -mr-12">
+            <div class="flex flex-col dropdown-container w-32 -mr-12">
               <button
                 id="filterDropdownButton4"
                 data-dropdown-toggle="filterDropdown"
@@ -228,19 +228,11 @@
                       This School Year
                     </label>
                   </li>
-                  <li class="flex items-center">
-                    <input
-                      id="alltime"
-                      type="radio"
-                      value="alltime"
-                      class="w-4 h-4 rounded text-slate-900"
-                      name="date"
-                    />
-                  </li>
+                  
                 </ul>
               </div>
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col dropdown-container">
               <button
                 id="filterDropdownButton3"
                 data-dropdown-toggle="filterDropdown"
@@ -328,35 +320,7 @@
                 </ul>
               </div>
             </div>
-
-            <!-- <label
-              for="start"
-              class="w-max p-2 bg-white text-slate-900 rounded-lg shadow hover:bg-slate-100 h-10"
-              >Start date:
-              <input
-                type="date"
-                id="start"
-                name="end-date"
-                value="2023-09-12"
-                min="2023-07-22"
-                class="bg-white hover:bg-slate-100"
-              />
-            </label>
-            <label
-              for="end-date"
-              class="w-max text-slate-900 p-2 bg-white rounded-lg shadow hover:bg-slate-100 h-10"
-              >End date:
-              <input
-                type="date"
-                id="end-date"
-                name="end-date"
-                value="2023-07-23"
-                min="2023-09-08"
-                class="bg-white hover:bg-slate-100"
-              />
-            </label> -->
-
-            <div class="flex flex-col w-52 -mr-12">
+            <div class="flex flex-col dropdown-container w-52 -mr-12">
               <button
                 id="filterDropdownButton2"
                 data-dropdown-toggle="filterDropdown2"
@@ -596,8 +560,6 @@
     </div>
 
     <script type="module" src="../components.js"></script>
-    <script type="module" src="../main.js"></script>
-    <script type="module" src="./reports.js"></script>
     <script type="module" src="../firebase.js"></script>
   </body>
 </html>

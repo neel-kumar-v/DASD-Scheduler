@@ -6,7 +6,6 @@ import {
   getCountFromServer,
 } from "firebase/firestore";
 import { app, db } from "../firebase.js";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 
 const auth = getAuth();
@@ -22,7 +21,6 @@ onAuthStateChanged(auth, function(user) {
 const counselorFilterDropdownButton = document.getElementById(
   "filterDropdownButton"
 );
-
 const counselorFilterDropdown = document.getElementById("filterDropdown");
 counselorFilterDropdownButton.addEventListener("click", () => {
   counselorFilterDropdown.classList.toggle("hidden");
@@ -70,6 +68,23 @@ function closeOtherDropdowns(openedDropdown) {
   });
 }
 
+const containerElements = document.querySelectorAll(".dropdown-container");
+
+containerElements.forEach((containerElement) => {
+  containerElement.addEventListener("focusout", function (e) {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      closeAllDropdowns();
+    }
+  });
+});
+
+function closeAllDropdowns() {
+  dropdowns.forEach((dropdown) => {
+    if (!dropdown.classList.contains("hidden")) {
+      dropdown.classList.add("hidden");
+    }
+  });
+}
 
 function startOfDay(timestamp) {
   // Convert the timestamp from milliseconds to seconds
@@ -91,26 +106,46 @@ window.onload = async function () {
     where("date", ">=", Date.now() - 1000 * 86400 * 365)
   );
   let snapshot = await getCountFromServer(q);
-  document.getElementById('yearly-meetings').innerText = snapshot._data.count.integerValue;
-  q = query(collection(db, 'checkin'), where('date', '>=', Date.now()-(1000*86400*30)))
+  document.getElementById("yearly-meetings").innerText =
+    snapshot._data.count.integerValue;
+  q = query(
+    collection(db, "checkin"),
+    where("date", ">=", Date.now() - 1000 * 86400 * 30)
+  );
   snapshot = await getCountFromServer(q);
-  document.getElementById('monthly-meetings').innerText = snapshot._data.count.integerValue;
-  q = query(collection(db, 'checkin'), where('date', '>=', Date.now()-(1000*86400*7)))
+  document.getElementById("monthly-meetings").innerText =
+    snapshot._data.count.integerValue;
+  q = query(
+    collection(db, "checkin"),
+    where("date", ">=", Date.now() - 1000 * 86400 * 7)
+  );
   snapshot = await getCountFromServer(q);
-  document.getElementById('weekly-meetings').innerText = snapshot._data.count.integerValue;
+  document.getElementById("weekly-meetings").innerText =
+    snapshot._data.count.integerValue;
 
   // console.log(startOfDay(1694558471326));
   let template = document.getElementById("student-entry");
 
-  let totalQuery = query(collection(db, "checkin"), where("date", ">=", Date.now() - 1000 * 86400 * 365));
+  let totalQuery = query(
+    collection(db, "checkin"),
+    where("date", ">=", Date.now() - 1000 * 86400 * 365)
+  );
   let querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // console.log(person)
     const clone = template.content.cloneNode(true);
     const elements = clone.childNodes[1].children;
     // console.log(elements)
-    elements[0].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${doc.data().email}" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(doc.data().firstName)}</a>`;
-    elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${doc.data().email}" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(doc.data().lastName)}</a>`;
+    elements[0].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${
+      doc.data().email
+    }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
+      doc.data().firstName
+    )}</a>`;
+    elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${
+      doc.data().email
+    }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
+      doc.data().lastName
+    )}</a>`;
 
     elements[2].innerHTML = capitalizeFirstLetter(doc.data().counselor);
     elements[3].innerHTML = doc.data().grade;
@@ -327,7 +362,7 @@ function applyFilters() {
         console.log("match");
       } else {
         tr[i].style.display = "none";
-          console.log("reason doesn't match", reasonFilters, reasonColumn);
+        console.log("reason doesn't match", reasonFilters, reasonColumn);
       }
     } else {
       tr[i].style.display = "none";
@@ -335,8 +370,60 @@ function applyFilters() {
   }
 }
 
-document.getElementById("filterButton").addEventListener("click", applyFilters);
+function sortByDate(descending = true) {
+  let table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("table-student-entries");
+  switching = true;
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
 
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 2; i < rows.length - 1; i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+
+      x = parseInt(rows[i].getElementsByTagName("td")[4].id);
+      y = parseInt(rows[i + 1].getElementsByTagName("td")[4].id);
+
+      // Check if the two rows should switch place:
+      if (descending) {
+        if (x < y) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else {
+        if (x > y) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      if (descending) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      } else {
+        rows[i + 1].parentNode.insertBefore(rows[i], rows[i + 1]);
+        switching = true;
+      }
+    }
+  }
+}
+
+document.getElementById("filterButton").addEventListener("click", applyFilters);
 
 const testData = [
   {
