@@ -43,7 +43,11 @@ document.getElementById("submit-button").onclick = async function handleSubmit(
   ).value;
   const email = document.querySelector(
     "form[name='main'] input[name='email']"
-  ).value;
+  ).value + "@student.dasd.org";
+  if(email.includes("@student.dasd.org@student.dasd.org")) {
+    // split the string at the second @
+    email = email.split("@")[0] + "@student.dasd.org"
+  }
   const reason = document.querySelector(
     "form[name='main'] select[name='reason']"
   ).value;

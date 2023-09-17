@@ -47,21 +47,27 @@
           >
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="relative z-0 mt-4 col-span-1">
-          <input
-            required
-            type="email"
-            name="email"
-            id="email"
-            class="transition-all block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-slate-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="email"
-            class="absolute text-sm text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-slate-600 peer-focus:dark:text-slate-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >Email address</label
-          >
+      <div class="grid md:grid-cols-2 gap-x-4">
+        <div class="flex gap-0">
+          <div class="relative z-0 mt-4  w-full">
+            <input
+              required
+              type="text"
+              name="email"
+              id="email"
+              class="transition-all block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-slate-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="email"
+              class="absolute text-sm text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-slate-600 peer-focus:dark:text-slate-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >Email address</label
+            >
+          </div>
+          <div class="border-0 border-x-2 px-2 border-t-2 border-gray-300 text-gray-400 h-1/2 translate-y-full text-sm flex items-center w-min ">
+            @student.dasd.org
+          </div>
+
         </div>
         <div class="relative z-0 mt-4 col-span-1">
           <label for="reason_for_meeting" class="sr-only"

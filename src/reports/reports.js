@@ -8,15 +8,15 @@ import {
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 
-const auth = getAuth();
-
 // Frontend
 
-onAuthStateChanged(auth, function(user) {
-  if (!user) {
-    window.location.href = '../login/'
-  }
-});
+// const auth = getAuth();
+
+// onAuthStateChanged(auth, function(user) {
+//   if (!user) {
+//     window.location.href = '../login/'
+//   }
+// });
 
 const counselorFilterDropdownButton = document.getElementById(
   "filterDropdownButton"
@@ -97,10 +97,8 @@ function startOfDay(timestamp) {
   return date.getTime();
 }
 let loggedIn = true;
-window.onload = async function () {
-  if (!loggedIn) {
-    window.location.href = "/login/";
-  }
+async function loadData() {
+  
   let q = query(
     collection(db, "checkin"),
     where("date", ">=", Date.now() - 1000 * 86400 * 365)
@@ -158,17 +156,25 @@ window.onload = async function () {
     const container = document.getElementById("student-entries");
     container.appendChild(clone);
   });
+  tr = table.getElementsByTagName("tr");
 };
 
-var input,
-  filter,
-  table,
-  tr,
-  firstName,
-  lastName,
-  i,
-  firstNameTextValue,
-  lastNameTextValue;
+window.onload = async function () {
+  if (!loggedIn) {
+    window.location.href = "/login/";
+  }
+  await loadData();
+}
+
+let input,
+filter,
+table,
+tr,
+firstName,
+lastName,
+i,
+firstNameTextValue,
+lastNameTextValue;
 input = document.getElementById("student-name");
 table = document.getElementById("table-student-entries");
 tr = table.getElementsByTagName("tr");
@@ -248,7 +254,8 @@ filterDropdown2Checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       reasonFilters.push(checkbox.value);
     } else {
-      let index = reasonFilters.indexOf(checkbox.value);
+      console.log(reasonFilters);
+      let index = reasonFilters.indexOf(checkbox.value.toLowerCase());
       if (index > -1) {
         reasonFilters.splice(index, 1);
       }
@@ -289,7 +296,7 @@ let gradeFilters = [];
 let dateFilters = "";
 let reasonFilters = [];
 // Function to apply filters
-function applyFilters() {
+async function applyFilters() {
   const entries = document.querySelectorAll(".student-entry");
   // parse through all of the checkboxes and see which ones are checked
   // if they are checked, then add them to an array of filter strings
