@@ -6,13 +6,23 @@ import {
   getCountFromServer,
 } from "firebase/firestore";
 import { app, db } from "../firebase.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 
+const auth = getAuth();
+
 // Frontend
+
+onAuthStateChanged(auth, function(user) {
+  if (!user) {
+    window.location.href = '../login/'
+  }
+});
 
 const counselorFilterDropdownButton = document.getElementById(
   "filterDropdownButton"
 );
+
 const counselorFilterDropdown = document.getElementById("filterDropdown");
 counselorFilterDropdownButton.addEventListener("click", () => {
   counselorFilterDropdown.classList.toggle("hidden");
