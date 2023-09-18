@@ -41,7 +41,7 @@ document.getElementById("submit-button").onclick = async function handleSubmit(
   const lastName = document.querySelector(
     "form[name='main'] input[name='lastName']"
   ).value;
-  const email = document.querySelector(
+  let email = document.querySelector(
     "form[name='main'] input[name='email']"
   ).value + "@student.dasd.org";
   if(email.includes("@student.dasd.org@student.dasd.org")) {

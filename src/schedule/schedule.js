@@ -1,5 +1,4 @@
 import {
-  
   query,
   where,
   collection,
@@ -8,7 +7,6 @@ import {
 } from "firebase/firestore";
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
-import flatpickr from "flatpickr";
 
 // Frontend
 
@@ -20,25 +18,21 @@ import flatpickr from "flatpickr";
 //   }
 // });
 
-
 const template = document.getElementById("student-entry");
 const table = document.getElementById("student-entries");
 let tr = table.getElementsByTagName("tr");
 
 let loggedIn = true;
 async function loadData() {
-  
   let q = query(
-    collection(db, "mscheduled"),
-    where("isScheduled", "==", false)
+    collection(db, "mscheduled")
+    // where("isScheduled", "==", false)
   );
 
-  
-  
   let querySnapshot = await getDocs(q);
-  
-  console.log(querySnapshot)
-  
+
+  // console.log(querySnapshot)
+
   querySnapshot.forEach((doc) => {
     // console.log(person)
     const clone = template.content.cloneNode(true);
@@ -57,8 +51,19 @@ async function loadData() {
 
     elements[2].innerHTML = capitalizeFirstLetter(doc.data().counselor);
     elements[3].innerHTML = doc.data().grade;
-      
+
     elements[4].innerHTML = doc.data().reason;
+    elements[5].innerHTML = doc.data().isScheduled ? "Yes" : "No";
+    
+    let sendEmail = elements[6].querySelector("a");
+    console.log(sendEmail)  
+    let mrOrMrs = doc.data().counselor == "stratton" ? "Mr." : "Mrs.";
+    let message = 
+    `Good%20morning%20${doc.data().firstName},%0AI%20hope%20your%20week%20is%20going%20well.%20I%20wanted%20to%20remind%20you%20of%20your%20meeting,%20today%20at%20${formatTime(doc.data().date)},%20with%20${mrOrMrs}%20${capitalizeFirstLetter(doc.data().counselor)}.%20Please%20let%20me%20know%20if%20that%20will%20work%20for%20you.%0A%0AHave%20a%20great%20day.%0A%0AMrs.%20Rockowitz`
+    sendEmail.href = `https://mail.google.com/mail/?view=cm&to=${doc.data().email}&su=Meeting%20Scheduled&body=${message}`
+    let tooltip = sendEmail.querySelector("span");
+    // console.log(tooltip)
+    tooltip.title =  `Send email to ${doc.data().firstName} ${doc.data().lastName}`
 
     // elements[6].innerHTML = flatpickrInstance;
     // elements[5].innerHTML = person.email
@@ -66,56 +71,60 @@ async function loadData() {
     container.appendChild(clone);
   });
 
+  sortByFinished();
+
   tr = table.getElementsByTagName("tr");
-};
+
+  const datepickers = document.querySelectorAll("input[type=datetime-local]");
+  datepickers.forEach((datepicker) => {
+    datepicker.addEventListener("change", async () => {
+      const sendEmailElement = datepicker.nextElementSibling;
+      sendEmailElement.classList.remove("invisible");
+    });
+  });
+
+  // const sendEmails = document.querySelectorAll(".send-email");
+  // sendEmails.forEach((sendEmail) => {
+  //   sendEmail.addEventListener("click", async () => {
+      
+  //   });
+  // })
+}
+
+
 
 window.onload = async function () {
   if (!loggedIn) {
     window.location.href = "/login/";
   }
   await loadData();
-}
+};
 
-const datepickers = document.querySelectorAll("input[type=datepicker-local]")
-datepickers.forEach((datepicker) => {
-  datepicker.addEventListener("change", (e) => {
-
-  })
-})
-
-function sortByFinished(descending = true) {
+function sortByFinished(descending = false) {
   let table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("table-student-entries");
   switching = true;
-  
+
   while (switching) {
     switching = false;
     rows = table.rows;
-    for (i = 2; i < rows.length - 1; i++) {
+    for (i = 1; i < rows.length - 1; i++) {
+      // Start from index 1 to skip the header row
       shouldSwitch = false;
-      x = parseInt(rows[i].getElementsByTagName("td")[5].id);
-      y = parseInt(rows[i + 1].getElementsByTagName("td")[5].id);
-      if (descending) {
-        if (x < y) {
-          shouldSwitch = true;
-          break;
-        }
-      } else {
-        if (x > y) {
-          shouldSwitch = true;
-          break;
-        }
+      x = rows[i].getElementsByTagName("td")[5].textContent.toLowerCase();
+      y = rows[i + 1].getElementsByTagName("td")[5].textContent.toLowerCase();
+
+      if (
+        (x === "no" && y === "yes" && descending) ||
+        (x === "yes" && y === "no" && !descending)
+      ) {
+        shouldSwitch = true;
+        break;
       }
     }
     if (shouldSwitch) {
-      if (descending) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-      } else {
-        rows[i + 1].parentNode.insertBefore(rows[i], rows[i + 1]);
-        switching = true;
-      }
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
     }
   }
 }
-
