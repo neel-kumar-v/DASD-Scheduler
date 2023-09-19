@@ -2,21 +2,32 @@ import {
   query,
   where,
   collection,
+  doc,
   getDocs,
+  setDoc,
+  updateDoc,
   getCountFromServer,
 } from "firebase/firestore";
 import { app, db } from "../firebase.js";
-import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  formatTime,
+  formatDate,
+  capitalizeFirstLetter,
+  formatDateTime,
+  formatDateToPlaceholder,
+} from "../util.js";
+// import { on } from "events";
 
 // Frontend
 
-// const auth = getAuth();
+const auth = getAuth();
 
-// onAuthStateChanged(auth, function(user) {
-//   if (!user) {
-//     window.location.href = '../login/'
-//   }
-// });
+onAuthStateChanged(auth, function (user) {
+  if (!user) {
+    window.location.href = "../login/";
+  }
+});
 
 const template = document.getElementById("student-entry");
 const table = document.getElementById("student-entries");
@@ -24,46 +35,80 @@ let tr = table.getElementsByTagName("tr");
 
 let loggedIn = true;
 async function loadData() {
-  let q = query(
-    collection(db, "mscheduled")
-    // where("isScheduled", "==", false)
-  );
+  let q = query(collection(db, "mscheduled"));
 
   let querySnapshot = await getDocs(q);
 
-  // console.log(querySnapshot)
+  let mrOrMrs, message, href;
 
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((docItem) => {
     // console.log(person)
+    if(docItem.data().date == 0) {
+      updateDoc(doc(db, "mscheduled", docItem.id), {
+        isScheduled: false,
+      })
+    }
     const clone = template.content.cloneNode(true);
     const elements = clone.childNodes[1].children;
     // console.log(elements)
     elements[0].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${
-      doc.data().email
+      docItem.data().email
     }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
-      doc.data().firstName
+      docItem.data().firstName
     )}</a>`;
     elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${
-      doc.data().email
+      docItem.data().email
     }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
-      doc.data().lastName
+      docItem.data().lastName
     )}</a>`;
 
-    elements[2].innerHTML = capitalizeFirstLetter(doc.data().counselor);
-    elements[3].innerHTML = doc.data().grade;
+    elements[2].innerHTML = capitalizeFirstLetter(docItem.data().counselor);
+    elements[3].innerHTML = docItem.data().grade;
 
-    elements[4].innerHTML = doc.data().reason;
-    elements[5].innerHTML = doc.data().isScheduled ? "Yes" : "No";
-    
+    elements[4].innerHTML = docItem.data().reason;
+    elements[5].innerHTML = docItem.data().isScheduled ? "Yes" : "No";
+
     let sendEmail = elements[6].querySelector("a");
-    console.log(sendEmail)  
-    let mrOrMrs = doc.data().counselor == "stratton" ? "Mr." : "Mrs.";
-    let message = 
-    `Good%20morning%20${doc.data().firstName},%0AI%20hope%20your%20week%20is%20going%20well.%20I%20wanted%20to%20remind%20you%20of%20your%20meeting,%20today%20at%20${formatTime(doc.data().date)},%20with%20${mrOrMrs}%20${capitalizeFirstLetter(doc.data().counselor)}.%20Please%20let%20me%20know%20if%20that%20will%20work%20for%20you.%0A%0AHave%20a%20great%20day.%0A%0AMrs.%20Rockowitz`
-    sendEmail.href = `https://mail.google.com/mail/?view=cm&to=${doc.data().email}&su=Meeting%20Scheduled&body=${message}`
+    let dateInput = elements[6].querySelector("input");
+
+
+    if (docItem.data().isScheduled) {
+      let datePlaceholder = formatDateToPlaceholder(docItem.data().date);
+      console.log(datePlaceholder, docItem.data().date);
+      dateInput.value = datePlaceholder;
+
+      let newTooltip = sendEmail.querySelector("span");
+      newTooltip.textContent = "Sent! ✅";
+      sendEmail.classList.remove("invisible");
+      sendEmail.href = "#";
+      sendEmail.target = "_self";
+      sendEmail.classList.add("cursor-not-allowed");
+      sendEmail.classList.remove("hover:bg-gray-200");
+      sendEmail.addEventListener('mouseover', (e) => {
+        newTooltip.title = "Change the date to send a new email";
+      })
+      sendEmail.addEventListener('click', (e) => {
+        e.preventDefault();
+      })
+    }
+
+    sendEmail.id = docItem.id;
+    // console.log(sendEmail);
+    mrOrMrs = docItem.data().counselor == "stratton" ? "Mr." : "Mrs.";
+    message = `Good morning ${
+      docItem.data().firstName
+    },%0AI hope your week is going well. I wanted to remind you of your meeting at [time], with ${mrOrMrs} ${capitalizeFirstLetter(
+      docItem.data().counselor
+    )}. Please let me know if that will work for you.%0A%0AHave a great day.%0A%0AMrs. Rockowitz`;
+    message = message.replace(" ", "%20");
+    href = `https://mail.google.com/mail/?view=cm&to=${
+      docItem.data().email
+    }&su=Meeting%20Scheduled&body=[message]`;
     let tooltip = sendEmail.querySelector("span");
     // console.log(tooltip)
-    tooltip.title =  `Send email to ${doc.data().firstName} ${doc.data().lastName}`
+    tooltip.title = `Send email to ${docItem.data().firstName} ${
+      docItem.data().lastName
+    }`;
 
     // elements[6].innerHTML = flatpickrInstance;
     // elements[5].innerHTML = person.email
@@ -76,22 +121,56 @@ async function loadData() {
   tr = table.getElementsByTagName("tr");
 
   const datepickers = document.querySelectorAll("input[type=datetime-local]");
-  datepickers.forEach((datepicker) => {
+  let dates = [];
+  for (let i = 0; i < datepickers.length; i++) {
+    let datepicker = datepickers[i];
+    dates.push(0);
     datepicker.addEventListener("change", async () => {
       const sendEmailElement = datepicker.nextElementSibling;
       sendEmailElement.classList.remove("invisible");
+      dates[i] = new Date(datepicker.value);
+      wasSentEmails[i] = false;
     });
-  });
+  }
 
-  // const sendEmails = document.querySelectorAll(".send-email");
-  // sendEmails.forEach((sendEmail) => {
-  //   sendEmail.addEventListener("click", async () => {
-      
-  //   });
-  // })
+  let wasSentEmails = [];
+  let sendEmails = document.querySelectorAll(".send-email");
+  for (let i = 0; i < sendEmails.length; i++) {
+    let sendEmail = sendEmails[i];
+    wasSentEmails.push(false);
+    sendEmail.addEventListener("mouseover", function () {
+      message = message.replace(/\[time\]/, formatDateTime(dates[i]));
+      message = message.replace(" ", "%20");
+      href = href.replace(/\[message\]/, message);
+      sendEmail.href = href;
+    });
+    sendEmail.addEventListener("click", function () {
+      // wait 0.5 seconds
+      if (wasSentEmails[i]) {
+        console.log("was sent");
+        sendEmail.classList.remove("hover:bg-gray-200");
+        sendEmail.href = "#";
+        sendEmail.target = "_self";
+        return;
+      }
+      setTimeout(async () => {
+        wasSentEmails[i] = true;
+        let tooltip = sendEmail.querySelector("span");
+        tooltip.title = "Change the date to send a new email";
+        tooltip.textContent = "Sent! ✅";
+        sendEmail.href = "#";
+        sendEmail.classList.add("cursor-not-allowed");  
+        console.log(sendEmail.href);
+        if (dates[i] == 0) return;
+        let docRef = doc(db, "mscheduled", sendEmail.id);
+        await updateDoc(docRef, {
+          isScheduled: true,
+          date: dates[i],
+        });
+      }, 500);
+    });
+  }
 }
-
-
 
 window.onload = async function () {
   if (!loggedIn) {

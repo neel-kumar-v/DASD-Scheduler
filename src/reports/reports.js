@@ -5,18 +5,21 @@ import {
   getDocs,
   getCountFromServer,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 
 // Frontend
 
-// const auth = getAuth();
+const auth = getAuth();
 
-// onAuthStateChanged(auth, function(user) {
-//   if (!user) {
-//     window.location.href = '../login/'
-//   }
-// });
+onAuthStateChanged(auth, function(user) {
+  if (!user) {
+    window.location.href = '../login/'
+  } else {
+    console.log(user)
+  }
+});
 
 const counselorFilterDropdownButton = document.getElementById(
   "filterDropdownButton"

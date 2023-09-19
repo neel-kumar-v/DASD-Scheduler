@@ -43,6 +43,29 @@ function formatTime(date) {
 
   return `${formattedHours}:${formattedMinutes} ${meridian}`;
 }
+function formatDateTime(date, comma=false) {
+  // return it in the format Month, Day, at Hour:Minute AM/PM
+  const dateTime = new Date(date);
+  const month = dateTime.toLocaleString("default", { month: "long" });
+  const day = dateTime.getDate();
+  const time = formatTime(date);
+  return `${month}${comma ? ',' : ''} ${day} at ${time}`;
+}
+
+function formatDateToPlaceholder(date) {
+  // console.log(date.seconds)
+  const dateTime = new Date(date.seconds * 1000);
+
+  const year = dateTime.getUTCFullYear();
+  const month = String(dateTime.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(dateTime.getUTCDate()).padStart(2, "0");
+  const hours = String(dateTime.getUTCHours()).padStart(2, "0");
+  const minutes = String(dateTime.getUTCMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -53,4 +76,6 @@ export {
   formatDate,
   formatTime,
   capitalizeFirstLetter,
+  formatDateTime,
+  formatDateToPlaceholder
 };
