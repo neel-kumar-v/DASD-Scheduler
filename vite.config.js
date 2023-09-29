@@ -29,6 +29,7 @@ export default defineConfig({
         reports: resolve(__dirname, 'src/reports/index.html'),
         login: resolve(__dirname, 'src/login/index.html'),
         checkin: resolve(__dirname, 'src/form/index.html'),
+        schedule: resolve(__dirname, 'src/schedule/index.html'),
       },
       output: {
         assetFileNames: (assetInfo) => {
