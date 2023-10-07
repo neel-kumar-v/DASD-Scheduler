@@ -66,10 +66,10 @@ async function loadData() {
     elements[3].innerHTML = docItem.data().grade;
 
     elements[4].innerHTML = docItem.data().reason;
-    elements[5].innerHTML = docItem.data().isScheduled ? "Yes" : "No";
+    // elements[5].innerHTML = docItem.data().isScheduled ? "Yes" : "No";
 
-    let sendEmail = elements[6].querySelector("a");
-    let dateInput = elements[6].querySelector("input");
+    let sendEmail = elements[5].querySelector("a");
+    let dateInput = elements[5].querySelector("input");
 
 
     if (docItem.data().isScheduled) {
@@ -112,8 +112,14 @@ async function loadData() {
 
     // elements[6].innerHTML = flatpickrInstance;
     // elements[5].innerHTML = person.email
-    const container = document.getElementById("student-entries");
-    container.appendChild(clone);
+    const toScheduleContainer = document.getElementById("student-entries");
+    const scheduledContainer = document.getElementById("student-entries-scheduled");
+    
+    if (docItem.data().isScheduled) {
+      scheduledContainer.appendChild(clone);
+    } else {
+      toScheduleContainer.appendChild(clone);
+    }
   });
 
   sortByFinished();

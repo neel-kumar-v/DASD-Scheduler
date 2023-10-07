@@ -19,10 +19,7 @@ function verifyDoc(doc) {
 }
 
 function formatName(name) {
-  let newName = "";
-  for (const c of name) {
-    newName += "*";
-  }
+  let newName = name;
   return newName;
 }
 
@@ -56,7 +53,8 @@ window.onload = async function () {
             parent = event.parentNode;
             console.log(parent);
             const delDocRef = doc(db, "checkin", cloneDOM.id);
-            await setDoc(delDocRef, { active: false }, { merge: true });
+            const date = Date.now();
+            await setDoc(delDocRef, { active: false, date_end: date }, { merge: true });
             location.reload()
           });
 

@@ -9,6 +9,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 
+export let meetingId;
+
 // Frontend
 
 const auth = getAuth();
@@ -142,19 +144,36 @@ async function loadData() {
     }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
       doc.data().firstName
     )}</a>`;
+
+    elements[0].id = doc.id
+
     elements[1].innerHTML = `<a href="https://mail.google.com/mail/?view=cm&to=${
       doc.data().email
     }" class="group-hover:underline" target="_blank">${capitalizeFirstLetter(
       doc.data().lastName
     )}</a>`;
 
+    elements[1].id = doc.id
+
     elements[2].innerHTML = capitalizeFirstLetter(doc.data().counselor);
     elements[3].innerHTML = doc.data().grade;
 
-    elements[4].innerHTML = formatDate(doc.data().date);
+    elements[4].innerHTML = `${formatDate(doc.data().date)} ${formatTime(doc.data().date)}`;
     elements[4].id = doc.data().date;
 
-    elements[5].innerHTML = doc.data().reason;
+    console.log(doc.data().date_end);
+
+    if(doc.data().date_end == 0 || doc.data().date_end == null) {
+      elements[5].innerHTML = "N/A";
+      elements[5].id = 0;
+    } else {
+      elements[5].innerHTML = `${formatDate(doc.data().date_end)} ${formatTime(doc.data().date_end)}`;
+      elements[5].id = doc.data().date_end;
+    }
+
+
+
+    elements[6].innerHTML = doc.data().reason;
     // elements[5].innerHTML = person.email
     const container = document.getElementById("student-entries");
     container.appendChild(clone);
@@ -417,288 +436,8 @@ function sortByDate(descending = true) {
   }
 }
 
-
+document.querySelector('.redirect-btn').onclick = (e) => {
+  meetingId = e.id
+}
 
 document.getElementById("filterButton").addEventListener("click", applyFilters);
-
-const testData = [
-  {
-    firstName: "Maryellen",
-    lastName: "Sargent",
-    email: "maryellensargent@zboo.com",
-    date: 292715684058,
-    counselor: "Glowik",
-    grade: "10",
-    reason: "Organization/Time Management Help",
-  },
-  {
-    firstName: "Wade",
-    lastName: "Hopper",
-    email: "wadehopper@zboo.com",
-    date: 780987232362,
-    counselor: "Glowik",
-    grade: "12",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Kennedy",
-    lastName: "Reilly",
-    email: "kennedyreilly@zboo.com",
-    date: 463768509861,
-    counselor: "Hewitt",
-    grade: "9",
-    reason: "I'm concerned about a friend",
-  },
-  {
-    firstName: "Weiss",
-    lastName: "Bailey",
-    email: "weissbailey@zboo.com",
-    date: 1291233002131,
-    counselor: "Glowik",
-    grade: "11",
-    reason: "I'm concerned about a friend",
-  },
-  {
-    firstName: "Colleen",
-    lastName: "Banks",
-    email: "colleenbanks@zboo.com",
-    date: 192225583280,
-    counselor: "Wallin",
-    grade: "10",
-    reason: "Schedule Question/Concern",
-  },
-  {
-    firstName: "Nunez",
-    lastName: "Sanders",
-    email: "nunezsanders@zboo.com",
-    date: 380588685475,
-    counselor: "Stratton",
-    grade: "10",
-    reason: "Organization/Time Management Help",
-  },
-  {
-    firstName: "Robert",
-    lastName: "Harris",
-    email: "robertharris@zboo.com",
-    date: 1492893745771,
-    counselor: "Stratton",
-    grade: "12",
-    reason: "Schedule Question/Concern",
-  },
-  {
-    firstName: "Gabriela",
-    lastName: "Davis",
-    email: "gabrieladavis@zboo.com",
-    date: 1073508540329,
-    counselor: "Stratton",
-    grade: "11",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Kramer",
-    lastName: "Acevedo",
-    email: "krameracevedo@zboo.com",
-    date: 818370036362,
-    counselor: "Wallin",
-    grade: "12",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Livingston",
-    lastName: "Serrano",
-    email: "livingstonserrano@zboo.com",
-    date: 1240752324780,
-    counselor: "Stratton",
-    grade: "11",
-    reason: "I'm concerned about a friend",
-  },
-  {
-    firstName: "Letitia",
-    lastName: "Farley",
-    email: "letitiafarley@zboo.com",
-    date: 214558549988,
-    counselor: "Wallin",
-    grade: "9",
-    reason: "Yearly Meeting - Freshman, Sophomore, Junior, Senior Meeting",
-  },
-  {
-    firstName: "Gamble",
-    lastName: "Strong",
-    email: "gamblestrong@zboo.com",
-    date: 247746207450,
-    counselor: "Hewitt",
-    grade: "9",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Day",
-    lastName: "Schwartz",
-    email: "dayschwartz@zboo.com",
-    date: 615957350868,
-    counselor: "Stratton",
-    grade: "10",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Allison",
-    lastName: "Weber",
-    email: "allisonweber@zboo.com",
-    date: 1287851918437,
-    counselor: "Stratton",
-    grade: "10",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Douglas",
-    lastName: "Walter",
-    email: "douglaswalter@zboo.com",
-    date: 332546240228,
-    counselor: "Stratton",
-    grade: "12",
-    reason: "Schedule Question/Concern",
-  },
-  {
-    firstName: "Marci",
-    lastName: "Cohen",
-    email: "marcicohen@zboo.com",
-    date: 356655093651,
-    counselor: "Hewitt",
-    grade: "9",
-    reason: "I'm concerned about a friend",
-  },
-  {
-    firstName: "Frost",
-    lastName: "Patrick",
-    email: "frostpatrick@zboo.com",
-    date: 465654952222,
-    counselor: "Stratton",
-    grade: "10",
-    reason: "Yearly Meeting - Freshman, Sophomore, Junior, Senior Meeting",
-  },
-  {
-    firstName: "Rhea",
-    lastName: "Coleman",
-    email: "rheacoleman@zboo.com",
-    date: 636629170638,
-    counselor: "Stratton",
-    grade: "11",
-    reason: "Yearly Meeting - Freshman, Sophomore, Junior, Senior Meeting",
-  },
-  {
-    firstName: "Gina",
-    lastName: "Maddox",
-    email: "ginamaddox@zboo.com",
-    date: 210393893518,
-    counselor: "Glowik",
-    grade: "9",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Cotton",
-    lastName: "Tate",
-    email: "cottontate@zboo.com",
-    date: 39732894912,
-    counselor: "Glowik",
-    grade: "12",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Macdonald",
-    lastName: "Lloyd",
-    email: "macdonaldlloyd@zboo.com",
-    date: 282986654828,
-    counselor: "Hewitt",
-    grade: "11",
-    reason: "Organization/Time Management Help",
-  },
-  {
-    firstName: "Mia",
-    lastName: "Doyle",
-    email: "miadoyle@zboo.com",
-    date: 684073089473,
-    counselor: "Hewitt",
-    grade: "9",
-    reason: "College/Career",
-  },
-  {
-    firstName: "Adams",
-    lastName: "Simmons",
-    email: "adamssimmons@zboo.com",
-    date: 1177621833050,
-    counselor: "Hewitt",
-    grade: "11",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Willa",
-    lastName: "Yang",
-    email: "willayang@zboo.com",
-    date: 389262440439,
-    counselor: "Glowik",
-    grade: "11",
-    reason: "Schedule Question/Concern",
-  },
-  {
-    firstName: "Elma",
-    lastName: "Rowe",
-    email: "elmarowe@zboo.com",
-    date: 409840262934,
-    counselor: "Wallin",
-    grade: "12",
-    reason: "Class/Grade Concern",
-  },
-  {
-    firstName: "Porter",
-    lastName: "Henderson",
-    email: "porterhenderson@zboo.com",
-    date: 918559436188,
-    counselor: "Stratton",
-    grade: "12",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Bright",
-    lastName: "Maldonado",
-    email: "brightmaldonado@zboo.com",
-    date: 698787766179,
-    counselor: "Glowik",
-    grade: "12",
-    reason: "Yearly Meeting - Freshman, Sophomore, Junior, Senior Meeting",
-  },
-  {
-    firstName: "Mai",
-    lastName: "Trujillo",
-    email: "maitrujillo@zboo.com",
-    date: 1466736756549,
-    counselor: "Hewitt",
-    grade: "9",
-    reason: "Schedule Question/Concern",
-  },
-  {
-    firstName: "Underwood",
-    lastName: "Elliott",
-    email: "underwoodelliott@zboo.com",
-    date: 1481482347932,
-    counselor: "Hewitt",
-    grade: "12",
-    reason: "Personal or Mental Health Check In",
-  },
-  {
-    firstName: "Vinson",
-    lastName: "Riley",
-    email: "vinsonriley@zboo.com",
-    date: 442037113537,
-    counselor: "Stratton",
-    grade: "12",
-    reason: "I'm concerned about a friend",
-  },
-  {
-    firstName: "Terrie",
-    lastName: "Conrad",
-    email: "terrieconrad@zboo.com",
-    date: 508605772527,
-    counselor: "Glowik",
-    grade: "9",
-    reason: "College/Career",
-  },
-];

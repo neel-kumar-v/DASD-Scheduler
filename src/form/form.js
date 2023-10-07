@@ -25,6 +25,7 @@ const firebaseTemplate = {
   counselor: "hewitt",
   date: Date.now(),
   active: true,
+  date_end: 0,
 };
 
 document.getElementById("submit-button").onclick = async function handleSubmit(
@@ -66,7 +67,8 @@ document.getElementById("submit-button").onclick = async function handleSubmit(
     grade: grade,
     counselor: counselor,
     date: date,
-    active: true,
+    date_end: 0,
+    active: true
   };
 
   console.log(firebaseData);
@@ -74,7 +76,7 @@ document.getElementById("submit-button").onclick = async function handleSubmit(
   try {
     docRef = await addDoc(collection(db, "checkin"), firebaseData);
     history.back();
-  } catch {
+  } catch(e) {
     console.error("Document add threw error:", e);
   }
 };

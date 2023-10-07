@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scheduler - Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="./reports.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <navbar-component></navbar-component>
+    <!-- Stats at a glance -->
+    <div class="grid container grid-cols-5 grid-rows-2 mx-auto py-5 gap-4 transition-all mb-12">
+      <div class="col-span-5 p-20 h-full w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex place-items-center justify-center flex-col">
+        <h3 class="text-2xl font-semibold">Meeting with</h3>
+        <h1 id="yearly-meetings" class="text-6xl font-bold">Soham Katdare</h1>
+        <h3 class="text-2xl font-semibold">Grade 12</h3>
+      </div>
+      <div class="h-full w-full col-span-2 transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex flex-col">
+        <h1 id="yearly-meetings" class="m-5 text-3xl font-bold">Information</h1>
+        <div class="ml-5 text-lg">
+            <strong>Counselor:</strong> <span>Stratton</span><br>
+            <strong>Reason:</strong> <span>College/Career</span><br>
+            <strong>Date:</strong> <span>10/7/2023</span><br>
+        </div>
+      </div>
+      <div class="p-5 h-full col-span-3 w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex flex-col">
+        <h1 id="yearly-meetings" class="mb-2 text-3xl font-bold">Notes</h1>
+        <form>
+            <textarea id="message" rows="4" class="block resize-none mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Summarize the meeting..."></textarea>
+            <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
+                Save
+            </button>
+         </form>
+      </div>
+      <!-- Turn into graph, or if no time, then keep it as a card -->
+    </div>
+
+    <script type="module" src="../components.js"></script>
+    <script type="module" src="../firebase.js"></script>
+  </body>
+</html>
