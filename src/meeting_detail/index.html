@@ -13,24 +13,29 @@
     <div class="grid container grid-cols-5 grid-rows-2 mx-auto py-5 gap-4 transition-all mb-12">
       <div class="col-span-5 p-20 h-full w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex place-items-center justify-center flex-col">
         <h3 class="text-2xl font-semibold">Meeting with</h3>
-        <h1 id="yearly-meetings" class="text-6xl font-bold">Soham Katdare</h1>
-        <h3 class="text-2xl font-semibold">Grade 12</h3>
+        <h1 id="name" class="text-6xl font-bold">Soham Katdare</h1>
+        <h3 class="text-2xl font-semibold" id="grade">Grade 12</h3>
       </div>
       <div class="h-full w-full col-span-2 transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex flex-col">
         <h1 id="yearly-meetings" class="m-5 text-3xl font-bold">Information</h1>
         <div class="ml-5 text-lg">
-            <strong>Counselor:</strong> <span>Stratton</span><br>
-            <strong>Reason:</strong> <span>College/Career</span><br>
-            <strong>Date:</strong> <span>10/7/2023</span><br>
+            <strong>Counselor:</strong> <span id="counselor">Stratton</span><br>
+            <strong>Reason:</strong> <span id="reason">College/Career</span><br>
+            <strong>Date:</strong> <span id="date">10/7/2023</span><br>
+            <strong>Duration:</strong> <span id="duration">35</span> mins<br>
+            <strong>Email:</strong> <span id="email"><a href="https://mail.google.com/mail/?view=cm&to=24skatdare@student.dasd.org" target="_blank">24skatdare@student.dasd.org</a></span><br>
         </div>
       </div>
       <div class="p-5 h-full col-span-3 w-full transition-all hover:drop-shadow-xl duration-500 outline-slate-200 rounded-lg outline-2 outline outline-solid hover:outline-0 bg-white flex flex-col">
         <h1 id="yearly-meetings" class="mb-2 text-3xl font-bold">Notes</h1>
         <form>
-            <textarea id="message" rows="4" class="block resize-none mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Summarize the meeting..."></textarea>
-            <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
+            <textarea id="message" rows="4" class="block resize-none h-full mb-2 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-slate-500 focus:border-slate-500" placeholder="Summarize the meeting..."></textarea>
+            <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-slate-700 border-2 border-slate-700 hover:border-slate-800 rounded-lg hover:bg-slate-800 transition-all">
                 Save
             </button>
+            <a class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-slate-700 bg-white border-2 border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition-all" id="schedule-meeting" href="/form/?">
+                Schedule Follow-Up Meeting
+            </a>
          </form>
       </div>
       <!-- Turn into graph, or if no time, then keep it as a card -->

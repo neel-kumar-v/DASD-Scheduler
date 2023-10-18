@@ -9,11 +9,17 @@
   </head>
   <body class="bg-gray-100">
     <navbar-component></navbar-component>
-    <div class="grid grid-cols-2 mx-12 gap-x-4 h-fit  rounded-lg">
+    <div class="grid grid-cols-2 mx-12 gap-x-4 h-fit rounded-lg">
       <hr class="mx-12 h-0.5 border-t-0 opacity-100 col-span-2" />
       <h1 class="text-3xl col-span-1 text-center my-4 font-bold">To Schedule</h1>
-      <h1 class="text-3xl col-span-1 text-center my-4 font-bold">Scheduled</h1>
+      <h1 class="col-span-1 text-3xl text-center my-4 font-bold">Scheduled</h1>
        
+      <div class="fixed bottom-10 right-10">
+        <a href="/form/?future=true" class="p-3 px-5 hover:bg-slate-600 bg-transparent transition-all font-normal text-xl text-slate-600 hover:text-white border-2 border-slate-600 hover:border-transparent rounded-full">
+          Schedule Meetings
+        </a>
+      </div>
+
       <div class="relative overflow-x-auto col-span-1">
         <table
           class="w-full text-sm text-center text-gray-500 bg-slate-200/50"

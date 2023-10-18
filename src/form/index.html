@@ -9,8 +9,8 @@
     <script type="module" src="./../util.js"></script>
   </head>
   <body>
-    <h1 class="text-4xl pt-4 font-bold w-screen text-center">
-      Counselor Check In Form
+    <h1 class="text-4xl pt-4 font-bold w-screen text-center" id="title">
+      Schedule or Log a Meeting
     </h1>
     <!-- <p class=" text-neutral-300 w-screen text-center">Please complete this form when you arrive for your appointment.</p> -->
     <form name="main" class="container mx-auto my-5 px-[5%]">
@@ -49,7 +49,7 @@
       </div>
       <div class="grid md:grid-cols-2 gap-x-4">
         <div class="flex gap-0">
-          <div class="relative z-0 mt-4  w-full">
+          <div class="relative z-0 mt-4 peer w-full">
             <input
               required
               type="text"
@@ -64,7 +64,7 @@
               >Email address</label
             >
           </div>
-          <div class="border-0 border-x-2 px-2 border-t-2 border-gray-300 text-gray-400 h-1/2 translate-y-full text-sm flex items-center w-min ">
+          <div class="border-0 border-x-2 px-2 border-t-2 peer-focus-within:border-slate-600 peer-focus-within:text-slate-600 transition-all border-gray-300 text-gray-400 h-1/2 translate-y-full text-sm flex items-center w-min ">
             @student.dasd.org
           </div>
 
@@ -214,6 +214,7 @@
         </li>
       </ul>
       <h3 class="mb-5 mt-14 text-3xl font-medium text-gray-900">Counselor</h3>
+      
       <ul class="grid w-full gap-6 sm:grid-cols-2 md:grid-cols-4">
         <li>
           <input
@@ -300,6 +301,21 @@
           </label>
         </li>
       </ul>
+      <h3 class="mb-5 mt-14 text-3xl font-medium text-gray-900">Date</h3>
+      <input type="checkbox" name="present" id="present">
+      <label for="present" class="text-slate-900 font-semibold text-xl mr-5">Right Now</label>
+      <input type="datetime-local" class="date bg-transparent border-b border-black text-md" placeholder="Assign Date" id="date">
+      <a id="send-button" class="p-2 rounded-full hover:bg-gray-200 text-center invisible">
+        <span title="Send email to student">Send Email</span>
+        <button id="send-email-button" class="w-4 h-5 ml-2 text-slate-900">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+          </svg>
+        </button>
+      </a>
+      
+          
+   
       <!-- submit button with arrow svg -->
       <button
         id="submit-button"
