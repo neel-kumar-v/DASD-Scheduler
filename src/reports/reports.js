@@ -8,10 +8,9 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
+// Frontend
 
 export let meetingId;
-
-// Frontend
 
 const auth = getAuth();
 
@@ -108,6 +107,7 @@ async function loadData() {
     collection(db, "checkin"),
     where("date", ">=", Date.now() - 1000 * 86400 * 365)
   );
+
   let snapshot = await getCountFromServer(q);
   document.getElementById("yearly-meetings").innerText =
     snapshot._data.count.integerValue;
@@ -174,6 +174,8 @@ async function loadData() {
 
 
     elements[6].innerHTML = doc.data().reason;
+    elements[7].innerHTML.childNodes[0].children[0].href = `/meeting_detail/id=${doc.id}`
+    meetingId = doc.id
     // elements[5].innerHTML = person.email
     const container = document.getElementById("student-entries");
     container.appendChild(clone);
@@ -434,10 +436,6 @@ function sortByDate(descending = true) {
       }
     }
   }
-}
-
-document.querySelector('.redirect-btn').onclick = (e) => {
-  meetingId = e.id
 }
 
 document.getElementById("filterButton").addEventListener("click", applyFilters);
