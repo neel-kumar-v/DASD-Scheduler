@@ -10,12 +10,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
 import $ from 'jquery'
-import { meetingId } from '../reports/reports.js'
 
 const params = new URLSearchParams(document.location.search);
-meetingId = params.get("id")
-const meeting = await getDoc(doc(db, 'checkin', meetingId))
-console.log(meeting.data())
+const meetingId = params.get("id")
+const meetingRef = doc(db, 'checkin', meetingId)
+const meeting = await getDoc(meetingRef)
+console.log(meeting)
 
 $(() => {
   try {
@@ -41,12 +41,11 @@ function generateQueryParams() {
   let link = '/form/';
   // get all firebase information
 }
-
 $('save-notes').on('click', async () => {
   console.log($('#message').val())
-  await setDoc(doc(db, 'checkin', id), {
+
+  await setDoc(doc(db, 'checkin', meetingId), {
     notes: $('#message').val()
   })
 
-  location.reload()
 })

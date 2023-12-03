@@ -123,17 +123,14 @@ async function loadData() {
     where("date", ">=", Date.now() - 1000 * 86400 * 7)
   );
   snapshot = await getCountFromServer(q);
-  document.getElementById("weekly-meetings").innerText =
-    snapshot._data.count.integerValue;
-
-  // console.log(startOfDay(1694558471326));
+  document.getElementById("weekly-meetings").innerText = snapshot._data.count.integerValue;
   let template = document.getElementById("student-entry");
-
+  
   let totalQuery = query(
     collection(db, "checkin"),
-    where("date", ">=", Date.now() - 1000 * 86400 * 365)
+    where("date", ">", Date.now() - 1000 * 86400 * 365)
   );
-  let querySnapshot = await getDocs(q);
+  let querySnapshot = await getDocs(totalQuery);
   querySnapshot.forEach((doc) => {
     // console.log(person)
     const clone = template.content.cloneNode(true);
@@ -174,7 +171,7 @@ async function loadData() {
 
 
     elements[6].innerHTML = doc.data().reason;
-    elements[7].innerHTML.childNodes[0].children[0].href = `/meeting_detail/id=${doc.id}`
+    elements[7].childNodes[0].children[0].href = `/meeting_detail/?id=${doc.id}`
     meetingId = doc.id
     // elements[5].innerHTML = person.email
     const container = document.getElementById("student-entries");
