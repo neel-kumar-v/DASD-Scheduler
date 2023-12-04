@@ -3,6 +3,7 @@ import {
     where,
     collection,
     getDoc,
+    setDoc,
     doc,
     getCountFromServer,
   } from "firebase/firestore";
@@ -33,7 +34,7 @@ $(() => {
 
   const notes = meeting.data().notes
   if (notes != ""){
-    $('message').val(notes)
+    $('message').val() = notes
   }
 })
 
@@ -41,11 +42,23 @@ function generateQueryParams() {
   let link = '/form/';
   // get all firebase information
 }
-$('save-notes').on('click', async () => {
-  console.log($('#message').val())
+$('#save-notes').on('click', async () => {
+  const docRef = doc(db, 'checkin', meetingId)
+  const docSnap = await getDoc(docRef)
 
-  await setDoc(doc(db, 'checkin', meetingId), {
-    notes: $('#message').val()
+  await setDoc(docRef, {
+    notes: $('#message').val(),
+    active: docSnap.data().active,
+    counselor: docSnap.data().counselor,
+    date: docSnap.data().date,
+    date_end: docSnap.data().date_end,
+    firstName: docSnap.data().firstName,
+    lastName: docSnap.data().lastName,
+    grade: docSnap.data().grade,
+    email: docSnap.data().email,
+    reason: docSnap.data().reason
   })
+
+  window.location.href = '../reports/'
 
 })
