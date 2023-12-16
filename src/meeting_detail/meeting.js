@@ -16,7 +16,7 @@ const params = new URLSearchParams(document.location.search);
 const meetingId = params.get("id")
 const meetingRef = doc(db, 'checkin', meetingId)
 const meeting = await getDoc(meetingRef)
-console.log(meeting)
+
 
 $(() => {
   try {
@@ -32,10 +32,21 @@ $(() => {
   $("#date").html(formatDate(meeting.data().date))
   $("#email").html(meeting.data().email)
 
+  let scheduleButton = document.getElementById("schedule-meeting");
+  scheduleButton.href += `grade=${meeting.data().grade}&counselor=${meeting.data().counselor}&firstName=${meeting.data().firstName}&lastName=${meeting.data().lastName}&email=${meeting.data().email}`
+
   const notes = meeting.data().notes
+  const notesElement = document.getElementById('message')
+  // console.log(notesElement)
   if (notes != ""){
-    $('message').val() = notes
+    notesElement.textContent = notes
   }
+  let saveButton = document.getElementById("save-notes");
+  // console.log(saveButton)
+  saveButton.disabled = true
+  notesElement.addEventListener('input', () => {
+    saveButton.disabled = false
+  })
 })
 
 function generateQueryParams() {
@@ -62,3 +73,4 @@ $('#save-notes').on('click', async () => {
   window.location.href = '../reports/'
 
 })
+

@@ -9,7 +9,7 @@ const dateInput = document.getElementById("date");
 const sendButton = document.getElementById("send-button");
 let titleElement = document.getElementById("title");
 window.onload = function () {
-  console.log("onload function");
+  // console.log("onload function");
   // getQueryVariable('counselor')
   //create a tailwind h1 with the var
   counselor = getQueryVariable("counselor");
@@ -23,8 +23,9 @@ window.onload = function () {
   grade = getQueryVariable("grade");
   if (grade != null) {
     const gradeRadio = document.querySelector(
-      `input[type="radio"][name="grade"][value=${grade}]`
+      `input[type="radio"][name="grade"][value="${grade}"]`
     );
+    console.log(gradeRadio);
     gradeRadio.checked = true;
   }
 
