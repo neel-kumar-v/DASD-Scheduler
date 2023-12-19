@@ -30,6 +30,7 @@ export default defineConfig({
         login: resolve(__dirname, 'src/login/index.html'),
         checkin: resolve(__dirname, 'src/form/index.html'),
         schedule: resolve(__dirname, 'src/schedule/index.html'),
+        meeting_detail: resolve(__dirname, 'src/meeting_detail/index.html'),
       },
       output: {
         assetFileNames: (assetInfo) => {
