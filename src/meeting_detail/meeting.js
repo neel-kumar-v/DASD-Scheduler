@@ -10,27 +10,27 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
-import $ from 'jquery'
+import { $ } from 'jquery'
 
 const params = new URLSearchParams(document.location.search);
 const meetingId = params.get("id")
 const meetingRef = doc(db, 'checkin', meetingId)
-const meeting = await getDoc(meetingRef)
 
 
-$(() => {
+document.addEventListener("DOMContentLoaded", async () => {
+  const meeting = await getDoc(meetingRef)
   try {
     params.get("id")
   } catch {
     location += `?id=${meetingId}`
   }
 
-  $('#name').html(meeting.data().firstName + " " + meeting.data().lastName)
-  $("#grade").html(`Grade ${meeting.data().grade}`)
-  $("#counselor").html(capitalizeFirstLetter(meeting.data().counselor))
-  $("#reason").html(meeting.data().reason)
-  $("#date").html(formatDate(meeting.data().date))
-  $("#email").html(meeting.data().email)
+  document.getElementById("name").innerHTML = meeting.data().firstName + " " + meeting.data().lastName;
+  document.getElementById("grade").innerHTML = `Grade ${meeting.data().grade}`
+  document.getElementById("counselor").innerHTML = capitalizeFirstLetter(meeting.data().counselor)
+  document.getElementById("reason").innerHTML = meeting.data().reason
+  document.getElementById("date").innerHTML = formatDate(meeting.data().date)
+  document.getElementById("email").innerHTML = meeting.data().email
 
   let scheduleButton = document.getElementById("schedule-meeting");
   scheduleButton.href += `grade=${meeting.data().grade}&counselor=${meeting.data().counselor}&firstName=${meeting.data().firstName}&lastName=${meeting.data().lastName}&email=${meeting.data().email}`
