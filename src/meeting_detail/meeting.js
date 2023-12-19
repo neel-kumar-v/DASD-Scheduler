@@ -10,7 +10,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { app, db } from "../firebase.js";
 import { formatTime, formatDate, capitalizeFirstLetter } from "../util.js";
-import { $ } from 'jquery'
+import $ from 'jquery'
 
 const params = new URLSearchParams(document.location.search);
 const meetingId = params.get("id")
